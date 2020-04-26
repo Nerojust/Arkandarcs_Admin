@@ -2,7 +2,7 @@ package com.nerojust.arkandarcsadmin.utils;
 
 import android.content.SharedPreferences;
 
-import static com.nerojust.arkandarcsadminapp.utils.MyApplication.getSharedPreferences;
+import static com.nerojust.arkandarcsadmin.utils.MyApplication.getSharedPreferences;
 
 public class SessionManager {
 

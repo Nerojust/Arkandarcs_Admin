@@ -17,11 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".views.register.RegisterActivity"></activity>
         <activity android:name=".views.products.ProductDetailsActivity" />
         <activity
             android:name=".views.login.LoginActivity"
             android:label="Sign in">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,6 +35,5 @@
             android:name=".views.DashBoardActivity"
             android:label="Dashboard" />
     </application>
-
 
 </manifest>

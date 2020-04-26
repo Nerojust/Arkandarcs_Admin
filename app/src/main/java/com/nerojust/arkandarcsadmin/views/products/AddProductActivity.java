@@ -1,10 +1,10 @@
 package com.nerojust.arkandarcsadmin.views.products;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.nerojust.arkandarcsadminapp.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.nerojust.arkandarcsadmin.R;
 
 public class AddProductActivity extends AppCompatActivity {
 

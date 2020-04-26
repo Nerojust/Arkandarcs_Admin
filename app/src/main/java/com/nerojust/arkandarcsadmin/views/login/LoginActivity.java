@@ -8,13 +8,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.nerojust.arkandarcsadminapp.R;
-import com.nerojust.arkandarcsadminapp.models.login.LoginResponse;
-import com.nerojust.arkandarcsadminapp.models.login.LoginSendObject;
-import com.nerojust.arkandarcsadminapp.utils.AppUtils;
-import com.nerojust.arkandarcsadminapp.views.DashBoardActivity;
-import com.nerojust.arkandarcsadminapp.web_services.WebServiceRequestMaker;
-import com.nerojust.arkandarcsadminapp.web_services.interfaces.LoginInterface;
+import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
+import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
+import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.views.DashBoardActivity;
+import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
 
 import java.util.Objects;
 

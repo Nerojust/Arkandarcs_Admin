@@ -1,16 +1,16 @@
-package com.nerojust.arkandarcsadmin.views.products;
-
-import android.os.Bundle;
+package com.nerojust.arkandarcsadmin.views.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
+
 import com.nerojust.arkandarcsadmin.R;
 
-public class ProductDetailsActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.product_details);
+        setContentView(R.layout.register);
     }
 }

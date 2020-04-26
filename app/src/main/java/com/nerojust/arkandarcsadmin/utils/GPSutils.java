@@ -26,7 +26,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.nerojust.arkandarcsadminapp.R;
+import com.nerojust.arkandarcsadmin.R;
 
 import java.util.ArrayList;
 import java.util.List;

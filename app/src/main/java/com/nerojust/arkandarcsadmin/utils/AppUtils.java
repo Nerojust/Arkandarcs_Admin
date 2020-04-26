@@ -30,9 +30,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.kofigyan.stateprogressbar.StateProgressBar;
-import com.nerojust.arkandarcsadminapp.R;
-import com.nerojust.arkandarcsadminapp.views.login.LoginActivity;
+import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
