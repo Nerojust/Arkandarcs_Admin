@@ -12,4 +12,10 @@
     <string name="username_is_too_short">Username is too short</string>
     <string name="password_is_required">Password is required</string>
     <string name="password_is_too_short">Password is too short</string>
+    <string name="arkandarcs_admin">ArkandArcs Admin</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="register_as_admin">Register as Admin</string>
+    <string name="reset_password">Reset Password?</string>
+    <string name="login">Login</string>
 </resources>

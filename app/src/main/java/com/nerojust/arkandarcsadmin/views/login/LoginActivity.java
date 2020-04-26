@@ -3,6 +3,7 @@ package com.nerojust.arkandarcsadmin.views.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.views.DashBoardActivity;
+import com.nerojust.arkandarcsadmin.views.register.RegisterActivity;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
 
@@ -20,7 +22,8 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private TextInputEditText emailEdittext, passwordEdittext;
-    private Button loginButton;
+    private Button loginButton, registerButton;
+    private TextView resetPasswordTextview;
     private String retrievedEmail;
     private String retrievedPassword;
 
@@ -37,10 +40,11 @@ public class LoginActivity extends AppCompatActivity {
         emailEdittext = findViewById(R.id.email);
         passwordEdittext = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
+        registerButton = findViewById(R.id.registerButton);
+        resetPasswordTextview = findViewById(R.id.resetPasswordTextview);
     }
 
     private void initListeners() {
-
         loginButton.setOnClickListener(v -> {
             if (isValidFields()) {
                 retrievedEmail = emailEdittext.getText().toString().trim();
@@ -50,6 +54,12 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        registerButton.setOnClickListener(v -> gotoRegisterActivity());
+    }
+
+    private void gotoRegisterActivity() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     private void performNetworkRequest() {

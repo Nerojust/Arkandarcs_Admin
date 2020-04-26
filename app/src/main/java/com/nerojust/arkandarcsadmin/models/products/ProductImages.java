@@ -1,7 +1,16 @@
-package com.nerojust.arkandarcsadmin.models.add_product;
+package com.nerojust.arkandarcsadmin.models.products;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class ProductImages {
-    private String imageName, imageUrl;
+
+    @SerializedName("imageName")
+    @Expose
+    private String imageName;
+    @SerializedName("imageUrl")
+    @Expose
+    private String imageUrl;
 
     public String getImageName() {
         return imageName;
@@ -18,4 +27,5 @@ public class ProductImages {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 }
