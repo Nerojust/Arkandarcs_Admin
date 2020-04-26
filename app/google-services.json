@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "494617335923",
+    "firebase_url": "https://arkandarcs-adminapp.firebaseio.com",
+    "project_id": "arkandarcs-adminapp",
+    "storage_bucket": "arkandarcs-adminapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494617335923:android:1f81c13e7cdce8f8a97206",
+        "android_client_info": {
+          "package_name": "com.nerojust.arkandarcsadminapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494617335923-d42rcjaqq2evhbn79q21op6e1duvs3qr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nerojust.arkandarcsadminapp",
+            "certificate_hash": "962e1fcb9558a097453b73f895dd8dfd0f3c76b5"
+          }
+        },
+        {
+          "client_id": "494617335923-cnvn94bdo8a641ivuu7j0am9qnr9jco6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4QvlVaCNu0AAMtXOnseATv1YRc3Y94j8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494617335923-cnvn94bdo8a641ivuu7j0am9qnr9jco6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
