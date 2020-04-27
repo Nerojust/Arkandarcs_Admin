@@ -17,9 +17,15 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".views.products.ProductsActivity"></activity>
+        <activity
+            android:name=".views.products.ProductsActivity"
+            android:label="Products"
+            android:parentActivityName=".views.DashBoardActivity" />
         <activity android:name=".views.register.RegisterActivity" />
-        <activity android:name=".views.products.ProductDetailsActivity" />
+        <activity
+            android:name=".views.products.ProductDetailsActivity"
+            android:label="Product Details"
+            android:parentActivityName=".views.products.ProductsActivity" />
         <activity
             android:name=".views.login.LoginActivity"
             android:label="Sign in"

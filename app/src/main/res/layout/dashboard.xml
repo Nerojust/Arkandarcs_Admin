@@ -15,7 +15,11 @@
         android:layout_marginTop="100dp"
         android:layout_height="wrap_content"
         android:hint="enter table name for images" />
-
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="go to products page" />
     <Button
         android:id="@+id/chooseButton"
         android:layout_width="match_parent"

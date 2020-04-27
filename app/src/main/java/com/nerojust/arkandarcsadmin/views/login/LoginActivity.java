@@ -46,14 +46,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initListeners() {
         loginButton.setOnClickListener(v -> {
-            if (isValidFields()) {
-                retrievedEmail = emailEdittext.getText().toString().trim();
-                retrievedPassword = passwordEdittext.getText().toString().trim();
+//            if (isValidFields()) {
+//                retrievedEmail = emailEdittext.getText().toString().trim();
+//                retrievedPassword = passwordEdittext.getText().toString().trim();
 
                 performNetworkRequest();
 
-            }
-        });
+//            }
+       });
         registerButton.setOnClickListener(v -> gotoRegisterActivity());
     }
 
@@ -66,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         AppUtils.initLoadingDialog(this);
 
         LoginSendObject loginSendObject = new LoginSendObject();
-        loginSendObject.setEmail(retrievedEmail);
-        loginSendObject.setPassword(retrievedPassword);
+        loginSendObject.setEmail("martha2@gmail.com");
+        loginSendObject.setPassword("123456");
 
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
         webServiceRequestMaker.loginInUser(loginSendObject, new LoginInterface() {

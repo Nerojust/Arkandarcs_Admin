@@ -25,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.views.products.ProductsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ import java.util.Objects;
 
 public class DashBoardActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 123;
-    private Button chooseButton, uploadButton;
+    private Button chooseButton, uploadButton, nextButton;
     private TextView alertTextview;
     private EditText tableNameEditext;
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
@@ -50,6 +51,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private void initViews() {
         chooseButton = findViewById(R.id.chooseButton);
+        nextButton = findViewById(R.id.next);
         uploadButton = findViewById(R.id.uploadButton);
         alertTextview = findViewById(R.id.statusTextview);
         tableNameEditext = findViewById(R.id.editext);
@@ -58,6 +60,7 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
+        nextButton.setOnClickListener(v -> startActivity(new Intent(this, ProductsActivity.class)));
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
             @Override

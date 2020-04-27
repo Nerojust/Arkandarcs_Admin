@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductInterface {
 
-    void onSuccess(List<ProductsResponse> productsResponse);
+    void onSuccess(ProductsResponse productsResponse);
 
     void onError(String error);
 

@@ -15,7 +15,7 @@ public interface GetInterface {
     Call<List<LoginUsersResponse>> getAllLoggedInUsers(@Path("loginId") String loginId);
 
     @GET("products")
-    Call<List<ProductsResponse>> getAllProducts();
+    Call<ProductsResponse> getAllProducts();
 
     @GET("products/{productId}")
     Call<List<LoginUsersResponse>> getSingleProduct(@Path("productId") String productId);

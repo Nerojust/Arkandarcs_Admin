@@ -1,143 +1,69 @@
 package com.nerojust.arkandarcsadmin.models.products;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 
 public class ProductsResponse {
 
-    @SerializedName("productImages")
+    @SerializedName("code")
     @Expose
-    private ProductImages productImages;
-    @SerializedName("_id")
+    private Integer code;
+    @SerializedName("message")
     @Expose
-    private String id;
-    @SerializedName("productName")
+    private String message;
+    @SerializedName("isSuccessful")
     @Expose
-    private String productName;
-    @SerializedName("productCategory")
+    private Boolean isSuccessful;
+    @SerializedName("recordCount")
     @Expose
-    private String productCategory;
-    @SerializedName("productAmount")
+    private Integer recordCount;
+    @SerializedName("results")
     @Expose
-    private String productAmount;
-    @SerializedName("productDiscountedAmount")
-    @Expose
-    private String productDiscountedAmount;
-    @SerializedName("isProductActive")
-    @Expose
-    private Boolean isProductActive;
-    @SerializedName("isOnPromo")
-    @Expose
-    private Boolean isOnPromo;
-    @SerializedName("createdAt")
-    @Expose
-    private String createdAt;
-    @SerializedName("updatedAt")
-    @Expose
-    private String updatedAt;
-    @SerializedName("__v")
-    @Expose
-    private Integer v;
-    @SerializedName("links")
-    @Expose
-    private Links links;
+    private List<Result> results = null;
 
-    public ProductImages getProductImages() {
-        return productImages;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setProductImages(ProductImages productImages) {
-        this.productImages = productImages;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public String getId() {
-        return id;
+    public String getMessage() {
+        return message;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getProductName() {
-        return productName;
+    public Boolean getIsSuccessful() {
+        return isSuccessful;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setIsSuccessful(Boolean isSuccessful) {
+        this.isSuccessful = isSuccessful;
     }
 
-    public String getProductCategory() {
-        return productCategory;
+    public Integer getRecordCount() {
+        return recordCount;
     }
 
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
+    public void setRecordCount(Integer recordCount) {
+        this.recordCount = recordCount;
     }
 
-    public String getProductAmount() {
-        return productAmount;
+    public List<Result> getResults() {
+        return results;
     }
 
-    public void setProductAmount(String productAmount) {
-        this.productAmount = productAmount;
-    }
-
-    public String getProductDiscountedAmount() {
-        return productDiscountedAmount;
-    }
-
-    public void setProductDiscountedAmount(String productDiscountedAmount) {
-        this.productDiscountedAmount = productDiscountedAmount;
-    }
-
-    public Boolean getIsProductActive() {
-        return isProductActive;
-    }
-
-    public void setIsProductActive(Boolean isProductActive) {
-        this.isProductActive = isProductActive;
-    }
-
-    public Boolean getIsOnPromo() {
-        return isOnPromo;
-    }
-
-    public void setIsOnPromo(Boolean isOnPromo) {
-        this.isOnPromo = isOnPromo;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Integer getV() {
-        return v;
-    }
-
-    public void setV(Integer v) {
-        this.v = v;
-    }
-
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 
 }
+
+
+

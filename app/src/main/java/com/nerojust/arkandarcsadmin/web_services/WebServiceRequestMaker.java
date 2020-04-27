@@ -106,12 +106,12 @@ public class WebServiceRequestMaker {
     }
 
     public void getAllProducts(ProductInterface productInterface) {
-        Call<List<ProductsResponse>> call = getInterface.getAllProducts();
-        call.enqueue(new Callback<List<ProductsResponse>>() {
+        Call<ProductsResponse> call = getInterface.getAllProducts();
+        call.enqueue(new Callback<ProductsResponse>() {
             @Override
-            public void onResponse(Call<List<ProductsResponse>> call, Response<List<ProductsResponse>> response) {
+            public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
                 if (response.isSuccessful()) {
-                    List<ProductsResponse> products = response.body();
+                    ProductsResponse products = response.body();
                     productInterface.onSuccess(products);
                 } else {
                     productInterface.onError(response.message());
@@ -119,7 +119,7 @@ public class WebServiceRequestMaker {
             }
 
             @Override
-            public void onFailure(Call<List<ProductsResponse>> call, Throwable t) {
+            public void onFailure(Call<ProductsResponse> call, Throwable t) {
                 if (t.getMessage() != null) {
                     if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
                         productInterface.onError("Network Error, please try again");

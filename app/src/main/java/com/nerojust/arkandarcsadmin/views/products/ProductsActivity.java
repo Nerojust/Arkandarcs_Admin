@@ -1,6 +1,7 @@
 package com.nerojust.arkandarcsadmin.views.products;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -8,6 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.adapters.ProductAdapter;
+import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
+import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
+
+import java.util.List;
 
 public class ProductsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -31,6 +39,32 @@ public class ProductsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.smoothScrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
+
+        AppUtils.initLoadingDialog(this);
+
+        WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
+        webServiceRequestMaker.getAllProducts(new ProductInterface() {
+            @Override
+            public void onSuccess(ProductsResponse productsResponse) {
+                ProductAdapter productAdapter = new ProductAdapter(productsResponse, getApplicationContext());
+                recyclerView.setAdapter(productAdapter);
+
+                AppUtils.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onError(String error) {
+                AppUtils.showDialog(error,ProductsActivity.this);
+                Toast.makeText(ProductsActivity.this, error, Toast.LENGTH_SHORT).show();
+                AppUtils.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onErrorCode(int errorCode) {
+                Toast.makeText(ProductsActivity.this, errorCode + "", Toast.LENGTH_SHORT).show();
+                AppUtils.dismissLoadingDialog();
+            }
+        });
     }
 
     private void initListeners() {
