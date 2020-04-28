@@ -38,6 +38,12 @@ public class ProductsActivity extends AppCompatActivity {
         recyclerView.smoothScrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
 
+        getAllProducts();
+    }
+
+
+
+    private void getAllProducts() {
         AppUtils.initLoadingDialog(this);
 
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();

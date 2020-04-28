@@ -1,10 +1,10 @@
 package com.nerojust.arkandarcsadmin.models.products;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class ProductsSendObject {
+public class UpdateProductsSendObject {
 
     @SerializedName("productName")
     @Expose
@@ -15,14 +15,15 @@ public class ProductsSendObject {
     @SerializedName("productAmount")
     @Expose
     private String productAmount;
-
     @SerializedName("productColor")
     @Expose
     private String productColor;
-
     @SerializedName("numberInStock")
     @Expose
     private String numberInStock;
+    @SerializedName("productDescription")
+    @Expose
+    private String productDescription;
     @SerializedName("productDiscountedAmount")
     @Expose
     private String productDiscountedAmount;
@@ -68,6 +69,22 @@ public class ProductsSendObject {
         this.productColor = productColor;
     }
 
+    public String getNumberInStock() {
+        return numberInStock;
+    }
+
+    public void setNumberInStock(String numberInStock) {
+        this.numberInStock = numberInStock;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
     public String getProductDiscountedAmount() {
         return productDiscountedAmount;
     }
@@ -76,20 +93,20 @@ public class ProductsSendObject {
         this.productDiscountedAmount = productDiscountedAmount;
     }
 
-    public Boolean getProductActive() {
+    public Boolean getIsProductActive() {
         return isProductActive;
     }
 
-    public void setProductActive(Boolean productActive) {
-        isProductActive = productActive;
+    public void setIsProductActive(Boolean isProductActive) {
+        this.isProductActive = isProductActive;
     }
 
-    public Boolean getOnPromo() {
+    public Boolean getIsOnPromo() {
         return isOnPromo;
     }
 
-    public void setOnPromo(Boolean onPromo) {
-        isOnPromo = onPromo;
+    public void setIsOnPromo(Boolean isOnPromo) {
+        this.isOnPromo = isOnPromo;
     }
 
     public ProductImages getProductImages() {
@@ -100,11 +117,4 @@ public class ProductsSendObject {
         this.productImages = productImages;
     }
 
-    public String getNumberInStock() {
-        return numberInStock;
-    }
-
-    public void setNumberInStock(String numberInStock) {
-        this.numberInStock = numberInStock;
-    }
 }

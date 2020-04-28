@@ -53,4 +53,10 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.google.android.gms:play-services-ads:19.1.0'
     implementation 'com.android.support:multidex:1.0.3'
+
+    //material edit text
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    //material dialog
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    //material button
 }

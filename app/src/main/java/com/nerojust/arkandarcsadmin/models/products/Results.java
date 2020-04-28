@@ -3,7 +3,7 @@ package com.nerojust.arkandarcsadmin.models.products;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Results {
 
     @SerializedName("productImages")
     @Expose
@@ -20,20 +20,6 @@ public class Result {
     @SerializedName("productAmount")
     @Expose
     private String productAmount;
-    @SerializedName("productDiscountedAmount")
-    @Expose
-    private String productDiscountedAmount;
-    @SerializedName("productColor")
-    @Expose
-    private String productColor;
-
-    @SerializedName("productDescription")
-    @Expose
-    private String productDescription;
-    @SerializedName("numberInStock")
-    @Expose
-    private String numberInStock;
-
     @SerializedName("isProductActive")
     @Expose
     private Boolean isProductActive;
@@ -49,9 +35,18 @@ public class Result {
     @SerializedName("__v")
     @Expose
     private Integer v;
-    @SerializedName("links")
+    @SerializedName("numberInStock")
     @Expose
-    private Links links;
+    private String numberInStock;
+    @SerializedName("productColor")
+    @Expose
+    private String productColor;
+    @SerializedName("productDescription")
+    @Expose
+    private String productDescription;
+    @SerializedName("productDiscountedAmount")
+    @Expose
+    private String productDiscountedAmount;
 
     public ProductImages getProductImages() {
         return productImages;
@@ -93,52 +88,20 @@ public class Result {
         this.productAmount = productAmount;
     }
 
-    public String getProductDiscountedAmount() {
-        return productDiscountedAmount;
-    }
-
-    public void setProductDiscountedAmount(String productDiscountedAmount) {
-        this.productDiscountedAmount = productDiscountedAmount;
-    }
-
-    public String getProductColor() {
-        return productColor;
-    }
-
-    public void setProductColor(String productColor) {
-        this.productColor = productColor;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public String getNumberInStock() {
-        return numberInStock;
-    }
-
-    public void setNumberInStock(String numberInStock) {
-        this.numberInStock = numberInStock;
-    }
-
-    public Boolean getProductActive() {
+    public Boolean getIsProductActive() {
         return isProductActive;
     }
 
-    public void setProductActive(Boolean productActive) {
-        isProductActive = productActive;
+    public void setIsProductActive(Boolean isProductActive) {
+        this.isProductActive = isProductActive;
     }
 
-    public Boolean getOnPromo() {
+    public Boolean getIsOnPromo() {
         return isOnPromo;
     }
 
-    public void setOnPromo(Boolean onPromo) {
-        isOnPromo = onPromo;
+    public void setIsOnPromo(Boolean isOnPromo) {
+        this.isOnPromo = isOnPromo;
     }
 
     public String getCreatedAt() {
@@ -165,11 +128,36 @@ public class Result {
         this.v = v;
     }
 
-    public Links getLinks() {
-        return links;
+    public String getNumberInStock() {
+        return numberInStock;
     }
 
-    public void setLinks(Links links) {
-        this.links = links;
+    public void setNumberInStock(String numberInStock) {
+        this.numberInStock = numberInStock;
     }
+
+    public String getProductColor() {
+        return productColor;
+    }
+
+    public void setProductColor(String productColor) {
+        this.productColor = productColor;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public String getProductDiscountedAmount() {
+        return productDiscountedAmount;
+    }
+
+    public void setProductDiscountedAmount(String productDiscountedAmount) {
+        this.productDiscountedAmount = productDiscountedAmount;
+    }
+
 }
