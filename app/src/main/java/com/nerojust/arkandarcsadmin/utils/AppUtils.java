@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
@@ -36,7 +36,6 @@ import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,6 +47,8 @@ public class AppUtils {
 
     private static SessionManager sessionManager;
     private static ProgressDialog progress;
+    private static LottieAnimationView lottieAnimationView;
+    private static AlertDialog alertDialog;
 
     public static SessionManager getSessionManagerInstance() {
         if (sessionManager == null) {
@@ -262,19 +263,19 @@ public class AppUtils {
         return hasImage;
     }
 
-    public static void initLoadingDialog(Context context) {
-        progress = ProgressDialog.show(context, null, null, true);
-        progress.setContentView(R.layout.progress_dialog_element);
-        progress.setCancelable(true);
-        progress.setCanceledOnTouchOutside(false);
-        Objects.requireNonNull(progress.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        progress.show();
+    public static void initLoadingDialog(Activity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        ViewGroup viewGroup = activity.findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(activity).inflate(R.layout.progress_dialog_element, viewGroup, false);
+        LottieAnimationView lottieAnimationView = dialogView.findViewById(R.id.lottie);
+        lottieAnimationView.playAnimation();
+        builder.setView(dialogView);
+        alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public static void dismissLoadingDialog() {
-        if (progress.isShowing()) {
-            progress.dismiss();
-        }
+        alertDialog.dismiss();
     }
 
 

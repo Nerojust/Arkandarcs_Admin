@@ -21,12 +21,15 @@
             android:name=".views.products.ProductsActivity"
             android:label="Products"
             android:parentActivityName=".views.DashBoardActivity" />
-        <activity android:name=".views.register.RegisterActivity" />
+        <activity
+            android:name=".views.register.RegisterActivity"
+            android:label="Register"
+            android:parentActivityName=".views.login.LoginActivity" />
         <activity
             android:name=".views.products.ProductDetailsActivity"
             android:label="Product Details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".views.products.ProductsActivity" />
+            android:parentActivityName=".views.products.ProductsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.login.LoginActivity"
             android:label="Sign in"

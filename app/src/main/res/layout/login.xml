@@ -28,7 +28,7 @@
                 android:gravity="center"
                 android:text="@string/arkandarcs_admin"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_16ssp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_15sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -68,18 +68,18 @@
                 android:fontFamily="@font/rubik_regular"
                 android:text="@string/login"
                 android:textColor="@color/arkandarcs_white"
-                android:textSize="@dimen/_14ssp" />
+                android:textSize="@dimen/_13ssp" />
 
             <Button
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_20sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
                 android:background="@drawable/dashboard_buttons_gray"
                 android:fontFamily="@font/rubik_regular"
                 android:text="@string/register_as_admin"
                 android:textColor="@color/arkandarcs_white"
-                android:textSize="@dimen/_14ssp" />
+                android:textSize="@dimen/_13ssp" />
 
             <TextView
                 android:id="@+id/resetPasswordTextview"
