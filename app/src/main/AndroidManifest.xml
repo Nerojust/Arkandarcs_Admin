@@ -25,6 +25,7 @@
         <activity
             android:name=".views.products.ProductDetailsActivity"
             android:label="Product Details"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".views.products.ProductsActivity" />
         <activity
             android:name=".views.login.LoginActivity"

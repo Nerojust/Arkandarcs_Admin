@@ -23,6 +23,17 @@ public class Result {
     @SerializedName("productDiscountedAmount")
     @Expose
     private String productDiscountedAmount;
+    @SerializedName("productColor")
+    @Expose
+    private String productColor;
+
+    @SerializedName("productDescription")
+    @Expose
+    private String productDescription;
+    @SerializedName("numberInStock")
+    @Expose
+    private String numberInStock;
+
     @SerializedName("isProductActive")
     @Expose
     private Boolean isProductActive;
@@ -90,20 +101,28 @@ public class Result {
         this.productDiscountedAmount = productDiscountedAmount;
     }
 
-    public Boolean getIsProductActive() {
+    public String getProductColor() {
+        return productColor;
+    }
+
+    public void setProductColor(String productColor) {
+        this.productColor = productColor;
+    }
+
+    public Boolean getProductActive() {
         return isProductActive;
     }
 
-    public void setIsProductActive(Boolean isProductActive) {
-        this.isProductActive = isProductActive;
+    public void setProductActive(Boolean productActive) {
+        isProductActive = productActive;
     }
 
-    public Boolean getIsOnPromo() {
+    public Boolean getOnPromo() {
         return isOnPromo;
     }
 
-    public void setIsOnPromo(Boolean isOnPromo) {
-        this.isOnPromo = isOnPromo;
+    public void setOnPromo(Boolean onPromo) {
+        isOnPromo = onPromo;
     }
 
     public String getCreatedAt() {
@@ -138,4 +157,19 @@ public class Result {
         this.links = links;
     }
 
+    public String getNumberInStock() {
+        return numberInStock;
+    }
+
+    public void setNumberInStock(String numberInStock) {
+        this.numberInStock = numberInStock;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
 }

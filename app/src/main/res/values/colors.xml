@@ -11,6 +11,8 @@
     <color name="arkandarcs_lighter_gray">#ECECF0</color>
     <color name="arkandarcs_gray_color">#A39F9F</color>
     <color name="arkandarcs_white">#ffffff</color>
+
+    <color name="arkandarcs_black">#000000</color>
     <color name="arkandarcs_light_red">#F37171</color>
     <color name="arkandarcs_splash_color">#E64405</color>
 </resources>

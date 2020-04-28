@@ -15,8 +15,6 @@ import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 
-import java.util.List;
-
 public class ProductsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
@@ -48,13 +46,14 @@ public class ProductsActivity extends AppCompatActivity {
             public void onSuccess(ProductsResponse productsResponse) {
                 ProductAdapter productAdapter = new ProductAdapter(productsResponse, getApplicationContext());
                 recyclerView.setAdapter(productAdapter);
+                productAdapter.notifyDataSetChanged();
 
                 AppUtils.dismissLoadingDialog();
             }
 
             @Override
             public void onError(String error) {
-                AppUtils.showDialog(error,ProductsActivity.this);
+                AppUtils.showDialog(error, ProductsActivity.this);
                 Toast.makeText(ProductsActivity.this, error, Toast.LENGTH_SHORT).show();
                 AppUtils.dismissLoadingDialog();
             }
