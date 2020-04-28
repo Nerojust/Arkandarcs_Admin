@@ -17,6 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3223394163127231~3493954191" />
+
         <activity
             android:name=".views.products.ProductsActivity"
             android:label="Products"

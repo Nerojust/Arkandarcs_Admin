@@ -8,6 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.textfield.TextInputEditText;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
@@ -32,6 +36,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        MobileAds.initialize(this, initializationStatus -> {});
+
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        InterstitialAd mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3223394163127231/2951862866");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
         initViews();
         initListeners();
     }
@@ -50,10 +64,10 @@ public class LoginActivity extends AppCompatActivity {
 //                retrievedEmail = emailEdittext.getText().toString().trim();
 //                retrievedPassword = passwordEdittext.getText().toString().trim();
 
-                performNetworkRequest();
+            performNetworkRequest();
 
 //            }
-       });
+        });
         registerButton.setOnClickListener(v -> gotoRegisterActivity());
     }
 
