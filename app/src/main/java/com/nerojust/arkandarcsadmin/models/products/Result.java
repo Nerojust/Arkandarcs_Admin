@@ -4,11 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.nerojust.arkandarcsadmin.models.login_users.Links;
 
+import java.util.List;
+
 public class Result {
 
-    @SerializedName("productImages")
-    @Expose
-    private ProductImage productImages;
     @SerializedName("_id")
     @Expose
     private String id;
@@ -34,7 +33,9 @@ public class Result {
     @SerializedName("numberInStock")
     @Expose
     private String numberInStock;
-
+    @SerializedName("productImages")
+    @Expose
+    private List<ProductImage> productImages = null;
     @SerializedName("isProductActive")
     @Expose
     private Boolean isProductActive;
@@ -53,14 +54,6 @@ public class Result {
     @SerializedName("links")
     @Expose
     private Links links;
-
-    public ProductImage getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(ProductImage productImages) {
-        this.productImages = productImages;
-    }
 
     public String getId() {
         return id;
@@ -124,6 +117,14 @@ public class Result {
 
     public void setNumberInStock(String numberInStock) {
         this.numberInStock = numberInStock;
+    }
+
+    public List<ProductImage> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(List<ProductImage> productImages) {
+        this.productImages = productImages;
     }
 
     public Boolean getProductActive() {

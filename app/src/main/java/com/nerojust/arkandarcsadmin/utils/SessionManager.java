@@ -17,6 +17,7 @@ public class SessionManager {
     private static final String PASSWORD_ = "PASSWORD_";
     private static final String TOKEN = "TOKEN";
     private static final String PRODUCT_ID = "PRODUCT_ID";
+    private static final String ADD_PRODUCT = "ADD_PRODUCT";
 
 
     private final SharedPreferences pref = getSharedPreferences();
@@ -188,5 +189,13 @@ public class SessionManager {
 
     public void setProductId(String productId) {
         setStringPreference(PRODUCT_ID,productId);
+    }
+
+    public String getAddProductJson(){
+        return getStringPreference(ADD_PRODUCT);
+    }
+
+    public void setAddProductJson(String addproduct) {
+        setStringPreference(ADD_PRODUCT, addproduct);
     }
 }

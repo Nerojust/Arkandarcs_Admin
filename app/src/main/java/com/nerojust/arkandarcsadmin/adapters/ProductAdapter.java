@@ -69,14 +69,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.isLiveTextview.setText("Inactive");
             holder.isLiveTextview.setTextColor(context.getResources().getColor(R.color.arkandarcs_gray_color));
         }
-        Glide.with(context)
-                .load(productsResponseList.getResults().get(position).getProductImages().getImageUrl())
-                .placeholder(R.drawable.load)
-                .into(holder.productImage);
 
+        if (productsResponseList.getResults().get(position).getProductImages().size() > 0) {
+            Glide.with(context)
+                    .load(productsResponseList.getResults().get(position).getProductImages().get(0).getImageUrl())
+                    .placeholder(R.drawable.load)
+                    .into(holder.productImage);
+        }
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(context, ProductDetailsActivity.class);
-            intent.putExtra("productId",productsResponseList.getResults().get(position).getId());
+            intent.putExtra("productId", productsResponseList.getResults().get(position).getId());
             intent.putExtra("productName", name);
             intent.putExtra("productCategory", category);
             intent.putExtra("productAmount", amount);
@@ -89,7 +91,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 intent.putExtra("productColor", productsResponseList.getResults().get(position).getProductColor());
             }
             intent.putExtra("isLive", isLive);
-            intent.putExtra("productImage", productsResponseList.getResults().get(position).getProductImages().getImageUrl());
+            if (productsResponseList.getResults().get(position).getProductImages().size() > 0) {
+                intent.putExtra("productImage", productsResponseList.getResults().get(position).getProductImages().get(0).getImageUrl());
+            }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });

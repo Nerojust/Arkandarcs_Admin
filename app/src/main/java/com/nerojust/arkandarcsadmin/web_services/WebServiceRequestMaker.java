@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
+import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductsSendObject;
 import com.nerojust.arkandarcsadmin.models.registration.RegistrationResponse;
@@ -14,6 +15,7 @@ import com.nerojust.arkandarcsadmin.models.registration.RegistrationSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.utils.MyApplication;
 import com.nerojust.arkandarcsadmin.utils.SessionManager;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.RegisterInterface;
@@ -165,6 +167,35 @@ public class WebServiceRequestMaker {
                     Log.e("Login error", error);
                 } else {
                     productInterface.onError("Network error");
+                }
+            }
+        });
+    }
+    public void addNewProduct(ProductsSendObject productsSendObject, AddProductInterface addProductInterface) {
+        Call<ProductsResponse> call = postInterfaceService.addNewProduct(productsSendObject);
+        call.enqueue(new Callback<ProductsResponse>() {
+            @Override
+            public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
+                if (response.isSuccessful()) {
+                    ProductsResponse products = response.body();
+                    addProductInterface.onSuccess(products);
+                } else {
+                    addProductInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductsResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        addProductInterface.onError("Network Error, please try again");
+                    } else {
+                        addProductInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    addProductInterface.onError("Network error");
                 }
             }
         });

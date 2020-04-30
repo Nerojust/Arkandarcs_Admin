@@ -26,6 +26,9 @@ public class ProductsSendObject {
     @SerializedName("productDiscountedAmount")
     @Expose
     private String productDiscountedAmount;
+    @SerializedName("productDescription")
+    @Expose
+    private String productDescription;
     @SerializedName("isProductActive")
     @Expose
     private Boolean isProductActive;
@@ -84,20 +87,28 @@ public class ProductsSendObject {
         this.productDiscountedAmount = productDiscountedAmount;
     }
 
-    public Boolean getIsProductActive() {
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public Boolean getProductActive() {
         return isProductActive;
     }
 
-    public void setIsProductActive(Boolean isProductActive) {
-        this.isProductActive = isProductActive;
+    public void setProductActive(Boolean productActive) {
+        isProductActive = productActive;
     }
 
-    public Boolean getIsOnPromo() {
+    public Boolean getOnPromo() {
         return isOnPromo;
     }
 
-    public void setIsOnPromo(Boolean isOnPromo) {
-        this.isOnPromo = isOnPromo;
+    public void setOnPromo(Boolean onPromo) {
+        isOnPromo = onPromo;
     }
 
     public List<ProductImage> getProductImages() {
@@ -107,5 +118,4 @@ public class ProductsSendObject {
     public void setProductImages(List<ProductImage> productImages) {
         this.productImages = productImages;
     }
-
 }

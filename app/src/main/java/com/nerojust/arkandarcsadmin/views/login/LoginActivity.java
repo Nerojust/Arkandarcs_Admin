@@ -35,8 +35,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        String createProduct = AppUtils.getSessionManagerInstance().getAddProductJson();
 
-        MobileAds.initialize(this, initializationStatus -> {});
+
+        MobileAds.initialize(this, initializationStatus -> {
+        });
 
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();

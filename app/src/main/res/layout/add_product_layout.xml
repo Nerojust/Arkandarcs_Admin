@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -150,7 +151,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
+                    android:layout_height="135dp"
                     android:fontFamily="@font/rubik_regular"
                     android:gravity="top"
                     android:hint="Product Description"
@@ -158,6 +159,37 @@
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/imageAddTextview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:drawableLeft="@android:drawable/ic_input_add"
+                    android:gravity="start|center"
+                    android:text="Add images"
+                    android:textColor="@color/arkandarcs_green"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/numberImageTextview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/arkandarcs_red_color"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    tools:text="4 image/s attached" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/saveButton"
@@ -168,7 +200,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/dashboard_buttons"
                 android:fontFamily="@font/rubik_regular"
-                android:text="Save"
+                android:text="Create Product"
                 android:textColor="@color/arkandarcs_white"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="parent"

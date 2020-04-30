@@ -2,6 +2,8 @@ package com.nerojust.arkandarcsadmin.web_services;
 
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
+import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
+import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
 import com.nerojust.arkandarcsadmin.models.registration.RegistrationResponse;
 import com.nerojust.arkandarcsadmin.models.registration.RegistrationSendObject;
 
@@ -16,6 +18,7 @@ public interface PostInterface {
     @POST("login")
     Call<LoginResponse> loginUser(@Body LoginSendObject loginSendObject);
 
-
+    @POST("products")
+    Call<ProductsResponse> addNewProduct(@Body ProductsSendObject productsSendObject);
 
 }
