@@ -3,11 +3,13 @@ package com.nerojust.arkandarcsadmin.models.products;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Results {
 
     @SerializedName("productImages")
     @Expose
-    private ProductImage productImages;
+    private List<ProductImage> productImages = null;
     @SerializedName("_id")
     @Expose
     private String id;
@@ -48,11 +50,11 @@ public class Results {
     @Expose
     private String productDiscountedAmount;
 
-    public ProductImage getProductImages() {
+    public List<ProductImage> getProductImages() {
         return productImages;
     }
 
-    public void setProductImages(ProductImage productImages) {
+    public void setProductImages(List<ProductImage> productImages) {
         this.productImages = productImages;
     }
 
@@ -88,20 +90,20 @@ public class Results {
         this.productAmount = productAmount;
     }
 
-    public Boolean getIsProductActive() {
+    public Boolean getProductActive() {
         return isProductActive;
     }
 
-    public void setIsProductActive(Boolean isProductActive) {
-        this.isProductActive = isProductActive;
+    public void setProductActive(Boolean productActive) {
+        isProductActive = productActive;
     }
 
-    public Boolean getIsOnPromo() {
+    public Boolean getOnPromo() {
         return isOnPromo;
     }
 
-    public void setIsOnPromo(Boolean isOnPromo) {
-        this.isOnPromo = isOnPromo;
+    public void setOnPromo(Boolean onPromo) {
+        isOnPromo = onPromo;
     }
 
     public String getCreatedAt() {
@@ -159,5 +161,4 @@ public class Results {
     public void setProductDiscountedAmount(String productDiscountedAmount) {
         this.productDiscountedAmount = productDiscountedAmount;
     }
-
 }

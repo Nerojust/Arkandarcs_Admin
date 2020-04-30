@@ -24,8 +24,7 @@
 
         <activity
             android:name=".views.products.ProductsActivity"
-            android:label="Products"
-            android:parentActivityName=".views.DashBoardActivity" />
+            android:label="Products" />
         <activity
             android:name=".views.register.RegisterActivity"
             android:label="Register"
@@ -48,9 +47,6 @@
         <activity
             android:name=".views.products.AddProductActivity"
             android:label="Add Product" />
-        <activity
-            android:name=".views.DashBoardActivity"
-            android:label="Dashboard" />
     </application>
 
 </manifest>

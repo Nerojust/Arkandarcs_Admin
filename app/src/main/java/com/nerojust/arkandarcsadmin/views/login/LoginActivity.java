@@ -1,5 +1,6 @@
 package com.nerojust.arkandarcsadmin.views.login;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -17,7 +18,7 @@ import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
-import com.nerojust.arkandarcsadmin.views.DashBoardActivity;
+import com.nerojust.arkandarcsadmin.views.products.ProductsActivity;
 import com.nerojust.arkandarcsadmin.views.register.RegisterActivity;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
@@ -112,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void gotoDashboardActivity() {
-        Intent intent = new Intent(this, DashBoardActivity.class);
+        Intent intent = new Intent(this, ProductsActivity.class);
         startActivity(intent);
     }
 
@@ -141,4 +142,19 @@ public class LoginActivity extends AppCompatActivity {
 
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getResources().getString(R.string.do_you_want_to_exit))
+                .setCancelable(false)
+                .setPositiveButton(getResources().getString(R.string.yes), (dialog, id) -> {
+                    finishAffinity();
+                })
+                .setNegativeButton(getResources().getString(R.string.no), (dialog, id) -> dialog.cancel());
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
 }

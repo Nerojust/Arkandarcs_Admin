@@ -44,6 +44,7 @@ import com.nerojust.arkandarcsadmin.models.products.ProductImage;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
@@ -83,7 +84,6 @@ public class ProductsActivity extends AppCompatActivity {
         setContentView(R.layout.products);
 
         initViews();
-        initListeners();
     }
 
     private void initViews() {
@@ -369,7 +369,29 @@ public class ProductsActivity extends AppCompatActivity {
         });
     }
 
-    private void initListeners() {
+
+    @Override
+    public void onBackPressed() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setMessage(getResources().getString(R.string.do_you_want_to_logout))
+                .setCancelable(false)
+                .setPositiveButton(getResources().getString(R.string.yes), (dialog, id) -> {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    AppUtils.getSessionManagerInstance().logout();
+                    startActivity(intent);
+                    ProductsActivity.this.onSuperBackPressed();
+                })
+                .setNegativeButton(getResources().getString(R.string.no), (dialog, id) -> dialog.cancel());
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
 
     }
+
+    private void onSuperBackPressed() {
+        super.onBackPressed();
+    }
+
+
 }

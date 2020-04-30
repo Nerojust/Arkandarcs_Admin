@@ -18,4 +18,8 @@
     <string name="register_as_admin">Register as Admin</string>
     <string name="reset_password">Reset Password?</string>
     <string name="login">Login</string>
+    <string name="do_you_want_to_logout">Do you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="do_you_want_to_exit">Do you want to exit?</string>
 </resources>
