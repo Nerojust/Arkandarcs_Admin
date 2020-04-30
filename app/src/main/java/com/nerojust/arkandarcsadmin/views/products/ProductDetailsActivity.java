@@ -5,24 +5,26 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.google.android.material.textfield.TextInputEditText;
 import com.nerojust.arkandarcsadmin.R;
-import com.nerojust.arkandarcsadmin.models.products.ProductImages;
+import com.nerojust.arkandarcsadmin.models.products.ProductImage;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductsSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.UpdateProductInterface;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private String productName;
@@ -36,13 +38,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private Button editButton;
     private String productImage;
     private String productId;
-    private MaterialEditText dialogproductName;
-    private MaterialEditText dialogproductCategory;
-    private MaterialEditText dialogproductColor;
-    private MaterialEditText dialogproductAmount;
-    private MaterialEditText dialogproductDiscountedAmount;
-    private MaterialEditText dialogproductDescription;
-    private MaterialEditText dialogProductQuantity;
+    private TextInputEditText dialogproductName;
+    private TextInputEditText dialogproductCategory;
+    private TextInputEditText dialogproductColor;
+    private TextInputEditText dialogproductAmount;
+    private TextInputEditText dialogproductDiscountedAmount;
+    private TextInputEditText dialogproductDescription;
+    private TextInputEditText dialogProductQuantity;
+    private Switch dialogSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,32 +101,45 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void editProduct() {
-        View view = LayoutInflater.from(this).inflate(R.layout.edit_product_layout, null);
-        new MaterialStyledDialog.Builder(this)
-                .setTitle("Edit Product")
-                .setDescription("Edit details of this product")
-                .setCustomView(view)
-                .setIcon(R.drawable.ic_launcher_background)
-                .setNegativeText("Cancel")
-                .onNegative((dialog, which) -> dialog.dismiss())
-                .setPositiveText("Submit")
-                .onPositive((dialog, which) -> {
-                    dialogproductName = view.findViewById(R.id.productName);
-                    dialogproductCategory = view.findViewById(R.id.productCategory);
-                    dialogproductColor = view.findViewById(R.id.productColor);
-                    dialogproductAmount = view.findViewById(R.id.productAmount);
-                    dialogProductQuantity = view.findViewById(R.id.numberInStock);
-                    dialogproductDiscountedAmount = view.findViewById(R.id.productDiscountedAmount);
-                    dialogproductDescription = view.findViewById(R.id.productDescription);
-                    if (isValidFields()) {
-                        sendDetailsToServer();
-                    }
-                }).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View view = LayoutInflater.from(this).inflate(R.layout.edit_product_layout, viewGroup, false);
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+
+        Button btnOk = view.findViewById(R.id.saveButton);
+
+        dialogproductName = view.findViewById(R.id.productName);
+        dialogproductCategory = view.findViewById(R.id.productCategory);
+        dialogproductColor = view.findViewById(R.id.productColor);
+        dialogproductAmount = view.findViewById(R.id.productAmount);
+        dialogProductQuantity = view.findViewById(R.id.numberInStock);
+        dialogproductDiscountedAmount = view.findViewById(R.id.productDiscountedAmount);
+        dialogproductDescription = view.findViewById(R.id.productDescription);
+        dialogSwitch = view.findViewById(R.id.liveSwitch);
+
+        dialogSwitch.setChecked(isLive);
+        dialogSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> isLive = isChecked);
+
+        dialogproductName.setText(productName);
+        dialogproductCategory.setText(productCategory);
+        dialogproductColor.setText(productColor);
+        dialogProductQuantity.setText(numberInStock);
+        dialogproductDescription.setText(productDescription);
+        dialogproductAmount.setText(productAmount);
+        dialogproductDiscountedAmount.setText(productDiscountedAmount);
+
+        btnOk.setOnClickListener(v -> {
+
+            if (isValidFields()) sendDetailsToServer();
+        });
+        alertDialog.show();
+
     }
 
     private void sendDetailsToServer() {
         AppUtils.initLoadingDialog(this);
-        ProductImages productImages = new ProductImages();
+        ProductImage productImages = new ProductImage();
         productImages.setImageName("This_new_name.jpg");
         productImages.setImageUrl(productImage);
 
@@ -136,9 +152,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productsSendObject.setProductDiscountedAmount(dialogproductDiscountedAmount.getText().toString().trim());
         productsSendObject.setProductDescription(dialogproductDescription.getText().toString().trim());
         productsSendObject.setProductImages(productImages);
-        productsSendObject.setIsProductActive(true);
-        productsSendObject.setIsOnPromo(true);
-
+        productsSendObject.setIsProductActive(isLive);
+        if (dialogproductDiscountedAmount.getText().toString().trim().isEmpty()){
+            productsSendObject.setIsOnPromo(false);
+        }else {
+            productsSendObject.setIsOnPromo(true);
+        }
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
         webServiceRequestMaker.editOneProduct(productsSendObject, new UpdateProductInterface() {
 
@@ -166,30 +185,33 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private boolean isValidFields() {
         if (dialogproductName.getText().toString().trim().isEmpty()) {
             dialogproductName.requestFocus();
+            Toast.makeText(this, "Product name is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (dialogproductCategory.getText().toString().trim().isEmpty()) {
             dialogproductCategory.requestFocus();
+            Toast.makeText(this, "Product category is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (dialogproductColor.getText().toString().trim().isEmpty()) {
             dialogproductColor.requestFocus();
+            Toast.makeText(this, "Product color is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (dialogProductQuantity.getText().toString().trim().isEmpty()) {
             dialogProductQuantity.requestFocus();
+            Toast.makeText(this, "Product quantity is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (dialogproductAmount.getText().toString().trim().isEmpty()) {
             dialogproductAmount.requestFocus();
+            Toast.makeText(this, "Product amount is required", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (dialogproductDiscountedAmount.getText().toString().trim().isEmpty()) {
-            dialogproductDiscountedAmount.requestFocus();
-            return false;
-        }
+
         if (dialogproductDescription.getText().toString().trim().isEmpty()) {
             dialogproductDescription.requestFocus();
+            Toast.makeText(this, "Product description is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

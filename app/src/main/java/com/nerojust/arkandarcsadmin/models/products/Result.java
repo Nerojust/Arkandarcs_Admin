@@ -2,12 +2,13 @@ package com.nerojust.arkandarcsadmin.models.products;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.nerojust.arkandarcsadmin.models.login_users.Links;
 
 public class Result {
 
     @SerializedName("productImages")
     @Expose
-    private ProductImages productImages;
+    private ProductImage productImages;
     @SerializedName("_id")
     @Expose
     private String id;
@@ -53,11 +54,11 @@ public class Result {
     @Expose
     private Links links;
 
-    public ProductImages getProductImages() {
+    public ProductImage getProductImages() {
         return productImages;
     }
 
-    public void setProductImages(ProductImages productImages) {
+    public void setProductImages(ProductImage productImages) {
         this.productImages = productImages;
     }
 

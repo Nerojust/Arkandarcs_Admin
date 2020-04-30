@@ -3,27 +3,25 @@ package com.nerojust.arkandarcsadmin.views;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.views.products.ProductsActivity;
 
@@ -59,59 +57,44 @@ public class DashBoardActivity extends AppCompatActivity {
         progressDialog.setMessage("Uploading, please wait...");
     }
 
+    @SuppressLint("NewApi")
     private void initListeners() {
         nextButton.setOnClickListener(v -> startActivity(new Intent(this, ProductsActivity.class)));
-        chooseButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!tableNameEditext.getText().toString().isEmpty()) {
-                    progressDialog.show();
-                    StorageReference imageFolder = FirebaseStorage.getInstance().getReference().child("images");
+        chooseButton.setOnClickListener(v -> openGallery());
+        uploadButton.setOnClickListener(v -> {
+            if (!tableNameEditext.getText().toString().isEmpty()) {
+                progressDialog.show();
+                StorageReference imageFolder = FirebaseStorage.getInstance().getReference().child("images");
 
-                    for (uploadCount = 0; uploadCount < uriArrayList.size(); uploadCount++) {
-                        Uri individualImage = uriArrayList.get(uploadCount);
-                        final StorageReference imageName = imageFolder.child("image" + individualImage.getLastPathSegment());
+                for (uploadCount = 0; uploadCount < uriArrayList.size(); uploadCount++) {
+                    Uri individualImage = uriArrayList.get(uploadCount);
 
-                        imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        String url = String.valueOf(uri);
-                                        storeLinkUril(url);
-                                        progressDialog.dismiss();
-                                        alertTextview.setText("Upload Successful");
-                                        uploadButton.setVisibility(View.GONE);
-                                        chooseButton.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(DashBoardActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                } else {
-                    Toast.makeText(DashBoardActivity.this, "Table name for images is required", Toast.LENGTH_SHORT).show();
+                    Cursor cursor = getContentResolver().query(individualImage, null, null, null, null);
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    cursor.moveToFirst();
+                    final StorageReference imageName = imageFolder.child(cursor.getString(nameIndex));
+
+
+                    imageName.putFile(individualImage).addOnSuccessListener(taskSnapshot -> imageName.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String url = String.valueOf(uri);
+                        storeLinkUrl(url, cursor.getString(nameIndex));
+                        progressDialog.dismiss();
+                        alertTextview.setText("Upload Successful");
+                        uploadButton.setVisibility(View.GONE);
+                        chooseButton.setVisibility(View.VISIBLE);
+                    })).addOnFailureListener(e -> Toast.makeText(DashBoardActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
+            } else {
+                Toast.makeText(DashBoardActivity.this, "Table name for images is required", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void storeLinkUril(String url) {
+    private void storeLinkUrl(String url, String imageName) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(tableNameEditext.getText().toString().trim());
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("imageLink", url);
+        hashMap.put("imageName", imageName);
         databaseReference.push().setValue(hashMap);
     }
 
@@ -120,7 +103,6 @@ public class DashBoardActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        //for 1 image remove below line
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
@@ -137,11 +119,11 @@ public class DashBoardActivity extends AppCompatActivity {
 
                     int currentImageSelected = 0;
                     while (currentImageSelected < dataClipCount) {
-
                         imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
                         uriArrayList.add(imageUri);
                         currentImageSelected++;
                     }
+
                     alertTextview.setVisibility(View.VISIBLE);
                     alertTextview.setText("You have selected " + uriArrayList.size() + " images ");
                     chooseButton.setVisibility(View.GONE);
@@ -153,6 +135,8 @@ public class DashBoardActivity extends AppCompatActivity {
                     alertTextview.setText("You have selected " + uriArrayList.size() + " images ");
                     chooseButton.setVisibility(View.GONE);
                     uploadButton.setVisibility(View.VISIBLE);
+
+
                 }
             }
         }

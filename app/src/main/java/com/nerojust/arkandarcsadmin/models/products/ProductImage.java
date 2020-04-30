@@ -3,7 +3,7 @@ package com.nerojust.arkandarcsadmin.models.products;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductImages {
+public class ProductImage {
 
     @SerializedName("imageName")
     @Expose

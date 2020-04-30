@@ -7,7 +7,7 @@ public class Results {
 
     @SerializedName("productImages")
     @Expose
-    private ProductImages productImages;
+    private ProductImage productImages;
     @SerializedName("_id")
     @Expose
     private String id;
@@ -48,11 +48,11 @@ public class Results {
     @Expose
     private String productDiscountedAmount;
 
-    public ProductImages getProductImages() {
+    public ProductImage getProductImages() {
         return productImages;
     }
 
-    public void setProductImages(ProductImages productImages) {
+    public void setProductImages(ProductImage productImages) {
         this.productImages = productImages;
     }
 

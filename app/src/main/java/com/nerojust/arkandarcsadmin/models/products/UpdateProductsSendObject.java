@@ -35,7 +35,7 @@ public class UpdateProductsSendObject {
     private Boolean isOnPromo;
     @SerializedName("productImages")
     @Expose
-    private ProductImages productImages;
+    private ProductImage productImages;
 
     public String getProductName() {
         return productName;
@@ -109,11 +109,11 @@ public class UpdateProductsSendObject {
         this.isOnPromo = isOnPromo;
     }
 
-    public ProductImages getProductImages() {
+    public ProductImage getProductImages() {
         return productImages;
     }
 
-    public void setProductImages(ProductImages productImages) {
+    public void setProductImages(ProductImage productImages) {
         this.productImages = productImages;
     }
 

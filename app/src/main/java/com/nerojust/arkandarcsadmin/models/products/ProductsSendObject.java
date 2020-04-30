@@ -3,6 +3,8 @@ package com.nerojust.arkandarcsadmin.models.products;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 
 public class ProductsSendObject {
 
@@ -15,11 +17,9 @@ public class ProductsSendObject {
     @SerializedName("productAmount")
     @Expose
     private String productAmount;
-
     @SerializedName("productColor")
     @Expose
     private String productColor;
-
     @SerializedName("numberInStock")
     @Expose
     private String numberInStock;
@@ -34,7 +34,7 @@ public class ProductsSendObject {
     private Boolean isOnPromo;
     @SerializedName("productImages")
     @Expose
-    private ProductImages productImages;
+    private List<ProductImage> productImages = null;
 
     public String getProductName() {
         return productName;
@@ -68,6 +68,14 @@ public class ProductsSendObject {
         this.productColor = productColor;
     }
 
+    public String getNumberInStock() {
+        return numberInStock;
+    }
+
+    public void setNumberInStock(String numberInStock) {
+        this.numberInStock = numberInStock;
+    }
+
     public String getProductDiscountedAmount() {
         return productDiscountedAmount;
     }
@@ -76,35 +84,28 @@ public class ProductsSendObject {
         this.productDiscountedAmount = productDiscountedAmount;
     }
 
-    public Boolean getProductActive() {
+    public Boolean getIsProductActive() {
         return isProductActive;
     }
 
-    public void setProductActive(Boolean productActive) {
-        isProductActive = productActive;
+    public void setIsProductActive(Boolean isProductActive) {
+        this.isProductActive = isProductActive;
     }
 
-    public Boolean getOnPromo() {
+    public Boolean getIsOnPromo() {
         return isOnPromo;
     }
 
-    public void setOnPromo(Boolean onPromo) {
-        isOnPromo = onPromo;
+    public void setIsOnPromo(Boolean isOnPromo) {
+        this.isOnPromo = isOnPromo;
     }
 
-    public ProductImages getProductImages() {
+    public List<ProductImage> getProductImages() {
         return productImages;
     }
 
-    public void setProductImages(ProductImages productImages) {
+    public void setProductImages(List<ProductImage> productImages) {
         this.productImages = productImages;
     }
 
-    public String getNumberInStock() {
-        return numberInStock;
-    }
-
-    public void setNumberInStock(String numberInStock) {
-        this.numberInStock = numberInStock;
-    }
 }
