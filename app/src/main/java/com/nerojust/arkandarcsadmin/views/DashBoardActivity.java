@@ -17,7 +17,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dash_board);
+        setContentView(R.layout.dashboard);
         TextView nameTextview = findViewById(R.id.nameTextview);
         String firstName = getIntent().getStringExtra("first_name");
         nameTextview.setText("Welcome " + firstName);

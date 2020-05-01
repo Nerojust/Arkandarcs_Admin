@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/arkandarcs_lighter_gray"
+    android:background="@drawable/ic_undraw_in_no_time"
+    android:backgroundTint="@color/arkandarcs_lighter_gray"
     android:orientation="vertical"
     tools:context=".views.login.LoginActivity">
 
@@ -89,7 +90,7 @@
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_13sdp"
                 android:background="@drawable/dashboard_buttons_gray"
                 android:fontFamily="@font/rubik_regular"
                 android:text="@string/register_as_admin"
@@ -109,6 +110,7 @@
 
 
         </LinearLayout>
+
     </ScrollView>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
