@@ -18,7 +18,7 @@ import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
-import com.nerojust.arkandarcsadmin.views.products.ProductsActivity;
+import com.nerojust.arkandarcsadmin.views.DashBoardActivity;
 import com.nerojust.arkandarcsadmin.views.register.RegisterActivity;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
@@ -39,6 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         String createProduct = AppUtils.getSessionManagerInstance().getAddProductJson();
 
 
+        initAds();
+
+        initViews();
+        initListeners();
+    }
+
+    private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
         });
 
@@ -49,9 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         InterstitialAd mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3223394163127231/2951862866");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        initViews();
-        initListeners();
     }
 
     private void initViews() {
@@ -84,16 +88,16 @@ public class LoginActivity extends AppCompatActivity {
         AppUtils.initLoadingDialog(this);
 
         LoginSendObject loginSendObject = new LoginSendObject();
-        loginSendObject.setEmail("martha2@gmail.com");
-        loginSendObject.setPassword("123456");
+        loginSendObject.setEmail("nerojust2@gmail.com");
+        loginSendObject.setPassword("12345");
 
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
         webServiceRequestMaker.loginInUser(loginSendObject, new LoginInterface() {
             @Override
             public void onSuccess(LoginResponse loginResponse) {
-                Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
-                gotoDashboardActivity();
+                gotoDashboardActivity(loginResponse);
 
                 AppUtils.dismissLoadingDialog();
             }
@@ -112,8 +116,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void gotoDashboardActivity() {
-        Intent intent = new Intent(this, ProductsActivity.class);
+    private void gotoDashboardActivity(LoginResponse response) {
+        Intent intent = new Intent(this, DashBoardActivity.class);
+        intent.putExtra("first_name", response.getResults().get(0).getFirstName());
         startActivity(intent);
     }
 

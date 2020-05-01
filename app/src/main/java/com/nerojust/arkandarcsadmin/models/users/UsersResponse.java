@@ -1,4 +1,5 @@
-package com.nerojust.arkandarcsadmin.models.login_users;
+package com.nerojust.arkandarcsadmin.models.users;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class LoginUsersResponse {
+public class UsersResponse {
 
     @SerializedName("code")
     @Expose
@@ -14,6 +15,9 @@ public class LoginUsersResponse {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("isSuccessful")
+    @Expose
+    private Boolean isSuccessful;
     @SerializedName("recordCount")
     @Expose
     private Integer recordCount;
@@ -35,6 +39,14 @@ public class LoginUsersResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Boolean getIsSuccessful() {
+        return isSuccessful;
+    }
+
+    public void setIsSuccessful(Boolean isSuccessful) {
+        this.isSuccessful = isSuccessful;
     }
 
     public Integer getRecordCount() {

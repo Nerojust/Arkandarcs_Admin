@@ -1,4 +1,12 @@
 package com.nerojust.arkandarcsadmin.web_services.interfaces;
 
-public class UsersInterface {
+import com.nerojust.arkandarcsadmin.models.users.UsersResponse;
+
+public interface UsersInterface {
+    void onSuccess(UsersResponse loginUsersResponse);
+
+    void onError(String error);
+
+    void onErrorCode(int errorCode);
+
 }

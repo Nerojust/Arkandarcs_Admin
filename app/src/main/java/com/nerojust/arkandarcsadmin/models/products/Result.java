@@ -2,7 +2,7 @@ package com.nerojust.arkandarcsadmin.models.products;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.nerojust.arkandarcsadmin.models.login_users.Links;
+import com.nerojust.arkandarcsadmin.models.users.Links;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.nerojust.arkandarcsadmin.models.login_users;
+package com.nerojust.arkandarcsadmin.models.users;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

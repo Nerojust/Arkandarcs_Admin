@@ -17,6 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity
+            android:name=".views.users.UsersActivity"
+            android:parentActivityName=".views.products.ProductsActivity" />
+        <activity android:name=".views.DashBoardActivity"
+            android:label="Dashboard"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -24,7 +29,8 @@
 
         <activity
             android:name=".views.products.ProductsActivity"
-            android:label="Products" />
+            android:label="Products"
+            android:parentActivityName=".views.DashBoardActivity" />
         <activity
             android:name=".views.register.RegisterActivity"
             android:label="Register"
@@ -37,6 +43,7 @@
         <activity
             android:name=".views.login.LoginActivity"
             android:label="Sign in"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

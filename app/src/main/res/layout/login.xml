@@ -8,9 +8,34 @@
     android:orientation="vertical"
     tools:context=".views.login.LoginActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:fontFamily="@font/rubik_regular"
+        android:gravity="start"
+        android:text="Welcome,"
+        android:textColor="@color/colorPrimary"
+        android:textSize="32sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/rubik_regular"
+        android:gravity="start"
+        android:text="Sign in to continue"
+        android:textColor="@color/arkandarcs_gray_color"
+        android:textSize="18sp" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:scrollbars="vertical">
 
         <LinearLayout
@@ -19,16 +44,6 @@
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/_20sdp"
-                android:fontFamily="@font/rubik_regular"
-                android:gravity="center"
-                android:text="@string/arkandarcs_admin"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_16ssp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -92,16 +107,17 @@
                 android:textColor="@color/arkandarcs_red_color"
                 android:textSize="@dimen/_13ssp" />
 
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-3223394163127231/7226149794" />
-
-
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_weight="0.1"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3223394163127231/7226149794" />
+
 </LinearLayout>

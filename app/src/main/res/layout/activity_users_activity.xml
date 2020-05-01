@@ -4,16 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_5sdp"
-    tools:context="com.nerojust.arkandarcsadmin.views.products.ProductsActivity">
+    tools:context="com.nerojust.arkandarcsadmin.views.users.UsersActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Registered Admin users" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/text"
         android:layout_margin="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_products"
+            android:id="@+id/recycler_users"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="1dp"

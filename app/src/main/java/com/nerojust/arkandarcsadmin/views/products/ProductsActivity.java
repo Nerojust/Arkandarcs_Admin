@@ -44,7 +44,6 @@ import com.nerojust.arkandarcsadmin.models.products.ProductImage;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
-import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
@@ -265,7 +264,7 @@ public class ProductsActivity extends AppCompatActivity {
             Uri individualImage = uriArrayList.get(uploadCount);
 
             Cursor cursor = getContentResolver().query(individualImage, null, null, null, null);
-            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int nameIndex = Objects.requireNonNull(cursor).getColumnIndex(OpenableColumns.DISPLAY_NAME);
             cursor.moveToFirst();
             final StorageReference imageName = imageFolder.child(cursor.getString(nameIndex));
 
@@ -283,7 +282,7 @@ public class ProductsActivity extends AppCompatActivity {
                             productImageList.add(productImages);
                             Toast.makeText(ProductsActivity.this, "upload count is " + uploadCount + " and array is " + uriArrayList.size(), Toast.LENGTH_SHORT).show();
                             if (uploadCount == uriArrayList.size()) {
-                                Toast.makeText(ProductsActivity.this, "Image/s Uploaded successfully", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(ProductsActivity.this, "Image/s Uploaded successfully", Toast.LENGTH_SHORT).show();
 
                                 new Handler().postDelayed(ProductsActivity.this::sendDetailsToServer, 1200);
 
@@ -297,7 +296,7 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
     private boolean isValidFields() {
-        if (dialogproductName.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(dialogproductName.getText()).toString().trim().isEmpty()) {
             dialogproductName.requestFocus();
             Toast.makeText(this, "Product name is required", Toast.LENGTH_SHORT).show();
             return false;
@@ -370,28 +369,7 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-        builder.setMessage(getResources().getString(R.string.do_you_want_to_logout))
-                .setCancelable(false)
-                .setPositiveButton(getResources().getString(R.string.yes), (dialog, id) -> {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    AppUtils.getSessionManagerInstance().logout();
-                    startActivity(intent);
-                    ProductsActivity.this.onSuperBackPressed();
-                })
-                .setNegativeButton(getResources().getString(R.string.no), (dialog, id) -> dialog.cancel());
-        android.app.AlertDialog alert = builder.create();
-        alert.show();
 
-    }
-
-    private void onSuperBackPressed() {
-        super.onBackPressed();
-    }
 
 
 }
