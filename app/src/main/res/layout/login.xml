@@ -106,8 +106,9 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/rubik_regular"
                 android:gravity="center"
+                android:textColor="@color/arkandarcs_green"
                 android:text="@string/reset_password"
-                android:textColor="@color/arkandarcs_red_color"
+                android:textStyle="bold"
                 android:textSize="@dimen/_13ssp" />
 
 

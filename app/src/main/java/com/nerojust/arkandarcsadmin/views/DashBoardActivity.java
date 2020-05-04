@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
+import com.nerojust.arkandarcsadmin.views.orders.OrdersActivity;
 import com.nerojust.arkandarcsadmin.views.products.ProductsActivity;
 import com.nerojust.arkandarcsadmin.views.users.UsersActivity;
 
@@ -24,6 +25,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
         findViewById(R.id.productsButton).setOnClickListener(v -> startActivity(new Intent(this, ProductsActivity.class)));
         findViewById(R.id.usersButton).setOnClickListener(v -> startActivity(new Intent(this, UsersActivity.class)));
+        findViewById(R.id.ordersButton).setOnClickListener(v -> startActivity(new Intent(this, OrdersActivity.class)));
     }
 
 

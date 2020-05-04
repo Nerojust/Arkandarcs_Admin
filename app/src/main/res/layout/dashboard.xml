@@ -10,56 +10,75 @@
         android:id="@+id/nameTextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
         android:gravity="center"
         android:textColor="@color/common_google_signin_btn_text_light_default"
-        android:textSize="20sp"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/productsButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.286"
         tools:text="Hi, Fred Amata" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_width="275dp"
+        android:layout_height="225dp"
         android:src="@drawable/ic_undraw_smartwatch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameTextview"
+        app:layout_constraintTop_toBottomOf="@id/usersButton"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/ordersButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dashboard_buttons"
+        android:padding="@dimen/_15sdp"
+        android:text="Orders"
+        android:textColor="@color/arkandarcs_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/productsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextview" />
 
     <Button
         android:id="@+id/productsButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="82dp"
         android:background="@drawable/dashboard_buttons"
-        android:padding="@dimen/_20sdp"
+        android:padding="@dimen/_15sdp"
         android:text="PRODUCTS"
         android:textColor="@color/arkandarcs_white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/usersButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/nameTextview" />
+        app:layout_constraintTop_toBottomOf="@id/ordersButton" />
 
     <Button
         android:id="@+id/usersButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/dashboard_buttons"
-        android:padding="@dimen/_20sdp"
+        android:padding="@dimen/_15sdp"
         android:text="Users"
         android:textColor="@color/arkandarcs_white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productsButton"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintTop_toBottomOf="@+id/productsButton" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

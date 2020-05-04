@@ -24,4 +24,11 @@
     <string name="do_you_want_to_exit">Do you want to exit?</string>
     <string name="do_you_want_to_delete_this_product">Do you want to delete this product?</string>
     <string name="no_network_available">No network detected</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="completed">Complete</string>
+    <string name="shipped">Shipped</string>
+    <string name="ready_to_ship">Ready to Ship</string>
+    <string name="pending">Pending</string>
 </resources>

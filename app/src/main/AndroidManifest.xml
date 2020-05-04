@@ -17,7 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".views.SplashScreenActivity"
+        <activity
+            android:name=".views.orders.OrdersActivity"
+            android:label="Orders"
+            android:parentActivityName=".views.DashBoardActivity" />
+        <activity
+            android:name=".views.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,9 +58,7 @@
             android:name=".views.login.LoginActivity"
             android:label="Sign in"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".views.products.AddProductActivity"
             android:label="Add Product" />
