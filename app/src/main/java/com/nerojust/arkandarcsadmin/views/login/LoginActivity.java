@@ -36,11 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
         String createProduct = AppUtils.getSessionManagerInstance().getAddProductJson();
 
-
         initAds();
-
         initViews();
         initListeners();
     }
@@ -161,5 +160,9 @@ public class LoginActivity extends AppCompatActivity {
         alert.show();
 
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
+    }
 }

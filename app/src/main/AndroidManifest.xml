@@ -17,11 +17,20 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".views.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".views.users.UsersActivity"
             android:parentActivityName=".views.products.ProductsActivity" />
-        <activity android:name=".views.DashBoardActivity"
-            android:label="Dashboard"/>
+        <activity
+            android:name=".views.DashBoardActivity"
+            android:label="Dashboard" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -45,11 +54,7 @@
             android:label="Sign in"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".views.products.AddProductActivity"

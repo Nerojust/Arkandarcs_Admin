@@ -1,8 +1,11 @@
 package com.nerojust.arkandarcsadmin.views.products;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.models.products.DeleteProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductImage;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductsSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.DeleteInterfaceR;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.UpdateProductInterface;
 
 public class ProductDetailsActivity extends AppCompatActivity {
@@ -36,7 +41,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private String numberInStock;
     private boolean isLive;
     private Button editButton;
-    private String productImage;
+    private ImageView deleteProductImageview;
+    private String productImageString;
     private String productId;
     private TextInputEditText dialogproductName;
     private TextInputEditText dialogproductCategory;
@@ -74,6 +80,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TextView productStatusTextview = findViewById(R.id.isLive);
         editButton = findViewById(R.id.editProductButton);
         ImageView productImageView = findViewById(R.id.productImage);
+        deleteProductImageview = findViewById(R.id.deleteProductButton);
 
         productNameTextview.setText(productName);
         productCategoryTextview.setText(productCategory);
@@ -94,12 +101,24 @@ public class ProductDetailsActivity extends AppCompatActivity {
             productStatusTextview.setTextColor(getResources().getColor(R.color.arkandarcs_green));
         }
 
-        Glide.with(this)
-                .load(productImage)
-                .placeholder(R.drawable.load)
-                .into(productImageView);
+        if (productImageString != null || productImageString != "") {
+            Bitmap bitmap = decodeStringToImage(productImageString);
+            if (bitmap != null) {
+                Glide.with(this)
+                        .load(bitmap)
+                        .placeholder(R.drawable.load)
+                        .into(productImageView);
+            }
+        }
     }
-
+    private Bitmap decodeStringToImage(String encodedImage) {
+        Bitmap bmp = null;
+        if (encodedImage != null) {
+            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);// actual conversion to Base64 String Image
+            bmp = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+        }
+        return bmp;
+    }
     private void editProduct() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -141,7 +160,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         AppUtils.initLoadingDialog(this);
         ProductImage productImages = new ProductImage();
         productImages.setImageName("This_new_name.jpg");
-        productImages.setImageUrl(productImage);
+        productImages.setImageUrl(productImageString);
 
         UpdateProductsSendObject productsSendObject = new UpdateProductsSendObject();
         productsSendObject.setProductName(dialogproductName.getText().toString().trim());
@@ -153,9 +172,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productsSendObject.setProductDescription(dialogproductDescription.getText().toString().trim());
         productsSendObject.setProductImages(productImages);
         productsSendObject.setIsProductActive(isLive);
-        if (dialogproductDiscountedAmount.getText().toString().trim().isEmpty()){
+        if (dialogproductDiscountedAmount.getText().toString().trim().isEmpty()) {
             productsSendObject.setIsOnPromo(false);
-        }else {
+        } else {
             productsSendObject.setIsOnPromo(true);
         }
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
@@ -165,6 +184,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             public void onSuccess(UpdateProductResponse updateProductResponse) {
                 Toast.makeText(ProductDetailsActivity.this, updateProductResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
+                recreate();
                 AppUtils.dismissLoadingDialog();
             }
 
@@ -218,8 +238,54 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
-        editButton.setOnClickListener(v -> {
-            editProduct();
+        editButton.setOnClickListener(v -> editProduct());
+
+        deleteProductImageview.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            ViewGroup viewGroup = findViewById(android.R.id.content);
+            View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_delete_account, viewGroup, false);
+            builder.setView(dialogView);
+            AlertDialog alertDialog = builder.create();
+
+            TextView btnYes = dialogView.findViewById(R.id.btn_yes);
+            TextView btnNo = dialogView.findViewById(R.id.btn_no);
+
+            btnYes.setOnClickListener(v12 -> {
+                if (AppUtils.isNetworkAvailable(this)) {
+                    deleteProduct();
+                } else {
+                    AppUtils.showSnackBar(getResources().getString(R.string.no_network_available), deleteProductImageview);
+                }
+            });
+
+            btnNo.setOnClickListener(v1 -> alertDialog.dismiss());
+            alertDialog.show();
+        });
+    }
+
+    private void deleteProduct() {
+        AppUtils.initLoadingDialog(this);
+
+        WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
+        webServiceRequestMaker.deleteOneProduct(new DeleteInterfaceR() {
+            @Override
+            public void onSuccess(DeleteProductResponse deleteProductResponse) {
+                Toast.makeText(ProductDetailsActivity.this, deleteProductResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                finish();
+                recreate();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(ProductDetailsActivity.this, error, Toast.LENGTH_SHORT).show();
+                AppUtils.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onErrorCode(int errorCode) {
+                Toast.makeText(ProductDetailsActivity.this, errorCode + "", Toast.LENGTH_SHORT).show();
+                AppUtils.dismissLoadingDialog();
+            }
         });
     }
 
@@ -235,7 +301,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productDiscountedAmount = intent.getStringExtra("productDiscountedAmount");
         numberInStock = intent.getStringExtra("numberInStock");
         isLive = intent.getBooleanExtra("isLive", false);
-        productImage = intent.getStringExtra("productImage");
+        productImageString = intent.getStringExtra("imageString");
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
     }
 }

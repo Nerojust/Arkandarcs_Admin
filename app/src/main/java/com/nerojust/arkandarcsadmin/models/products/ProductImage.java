@@ -11,6 +11,9 @@ public class ProductImage {
     @SerializedName("imageUrl")
     @Expose
     private String imageUrl;
+    @SerializedName("imageString")
+    @Expose
+    private String imageString;
 
     public String getImageName() {
         return imageName;
@@ -28,4 +31,11 @@ public class ProductImage {
         this.imageUrl = imageUrl;
     }
 
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
 }

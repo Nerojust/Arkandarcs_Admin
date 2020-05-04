@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         countryStateLgaArray();
         emailAddress = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        phoneNumber=findViewById(R.id.phoneNunber);
+        phoneNumber = findViewById(R.id.phoneNunber);
         re_enterpassword = findViewById(R.id.reenterpassword);
         signupButton = findViewById(R.id.signupButton);
         backToLoginTextview = findViewById(R.id.loginTextview);
@@ -396,5 +396,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
     }
 }

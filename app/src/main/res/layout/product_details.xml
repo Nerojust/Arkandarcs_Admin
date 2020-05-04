@@ -38,6 +38,24 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/deleteProductButton"
+                    android:layout_width="47dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="246dp"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.925"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.39" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -63,10 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_5sdp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="2dp"
-
-                app:cardElevation="2dp"
+                app:cardCornerRadius="4dp"
                 app:cardMaxElevation="2dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
@@ -74,7 +89,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_13sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     android:orientation="vertical"
                     android:paddingVertical="@dimen/_6sdp">
 
@@ -82,7 +98,6 @@
                         android:id="@+id/productName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/_4sdp"
                         android:fontFamily="@font/rubik_regular"
                         android:text="Title"
                         android:textAlignment="center"
@@ -187,22 +202,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_7sdp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
 
                 <Button
                     android:id="@+id/editProductButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.8"
                     android:background="@drawable/dashboard_buttons"
+                    android:drawableRight="@drawable/ic_edit"
                     android:fontFamily="@font/rubik_regular"
                     android:gravity="center"
                     android:text="Edit Product"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_13ssp" />
+
 
             </LinearLayout>
         </LinearLayout>

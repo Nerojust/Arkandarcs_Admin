@@ -2,7 +2,10 @@ package com.nerojust.arkandarcsadmin.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,10 +74,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         if (productsResponseList.getResults().get(position).getProductImages().size() > 0) {
-            Glide.with(context)
-                    .load(productsResponseList.getResults().get(position).getProductImages().get(0).getImageUrl())
-                    .placeholder(R.drawable.load)
-                    .into(holder.productImage);
+            String encodedImageString = productsResponseList.getResults().get(position).getProductImages().get(0).getImageString();
+            if (encodedImageString != null || encodedImageString != "") {
+                Bitmap bitmap = decodeStringToImage(encodedImageString);
+                if (bitmap != null) {
+                    Glide.with(context)
+                            .load(bitmap)
+                            .placeholder(R.drawable.load)
+                            .into(holder.productImage);
+                }
+            }
         }
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(context, ProductDetailsActivity.class);
@@ -92,13 +101,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
             intent.putExtra("isLive", isLive);
             if (productsResponseList.getResults().get(position).getProductImages().size() > 0) {
-                intent.putExtra("productImage", productsResponseList.getResults().get(position).getProductImages().get(0).getImageUrl());
+                intent.putExtra("imageString", productsResponseList.getResults().get(position).getProductImages().get(0).getImageString());
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
 
     }
+
+    private Bitmap decodeStringToImage(String encodedImage) {
+        Bitmap bmp = null;
+        if (encodedImage != null) {
+            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);// actual conversion to Base64 String Image
+             bmp = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+        }
+        return bmp;
+    }
+
 
     @Override
     public int getItemCount() {

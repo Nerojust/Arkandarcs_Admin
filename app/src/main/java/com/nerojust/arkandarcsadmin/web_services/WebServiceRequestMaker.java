@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
+import com.nerojust.arkandarcsadmin.models.products.DeleteProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
@@ -17,6 +18,7 @@ import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.utils.MyApplication;
 import com.nerojust.arkandarcsadmin.utils.SessionManager;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.DeleteInterfaceR;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.RegisterInterface;
@@ -35,6 +37,8 @@ public class WebServiceRequestMaker {
     private final Retrofit retrofit = MyApplication.getInstance().getRetrofit();
     private final PostInterface postInterfaceService = retrofit.create(PostInterface.class);
     private final GetInterface getInterface = retrofit.create(GetInterface.class);
+    private final PutInterface putInterface = retrofit.create(PutInterface.class);
+    private final DeleteInterface deleteInterface = retrofit.create(DeleteInterface.class);
     private SessionManager sessionManager = AppUtils.getSessionManagerInstance();
 
 
@@ -145,7 +149,7 @@ public class WebServiceRequestMaker {
     }
 
     public void editOneProduct(UpdateProductsSendObject updateProductsSendObject, UpdateProductInterface productInterface) {
-        Call<UpdateProductResponse> call = getInterface.editOneProduct(updateProductsSendObject, sessionManager.getProductId());
+        Call<UpdateProductResponse> call = putInterface.editOneProduct(updateProductsSendObject, sessionManager.getProductId());
         call.enqueue(new Callback<UpdateProductResponse>() {
             @Override
             public void onResponse(Call<UpdateProductResponse> call, Response<UpdateProductResponse> response) {
@@ -169,6 +173,35 @@ public class WebServiceRequestMaker {
                     Log.e("Login error", error);
                 } else {
                     productInterface.onError("Network error");
+                }
+            }
+        });
+    }
+    public void deleteOneProduct(DeleteInterfaceR deleteInterfacer) {
+        Call<DeleteProductResponse> call = deleteInterface.deleteOneProduct(sessionManager.getProductId());
+        call.enqueue(new Callback<DeleteProductResponse>() {
+            @Override
+            public void onResponse(Call<DeleteProductResponse> call, Response<DeleteProductResponse> response) {
+                if (response.isSuccessful()) {
+                    DeleteProductResponse products = response.body();
+                    deleteInterfacer.onSuccess(products);
+                } else {
+                    deleteInterfacer.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteProductResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        deleteInterfacer.onError("Network Error, please try again");
+                    } else {
+                        deleteInterfacer.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    deleteInterfacer.onError("Network error");
                 }
             }
         });

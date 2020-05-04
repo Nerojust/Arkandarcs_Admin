@@ -3,12 +3,14 @@ package com.nerojust.arkandarcsadmin.views.products;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.OpenableColumns;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,13 +32,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.adapters.ProductAdapter;
@@ -48,6 +46,8 @@ import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +69,7 @@ public class ProductsActivity extends AppCompatActivity {
     private TextView alertTextview;
     private EditText tableNameEditext;
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
+    private List<String> imageStringArrayList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private int uploadCount = 0;
     private boolean isLive;
@@ -100,7 +101,7 @@ public class ProductsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         productImages = new ProductImage();
-        productImageList = new ArrayList<>();
+
 
         getAllProducts();
     }
@@ -154,7 +155,8 @@ public class ProductsActivity extends AppCompatActivity {
         btnOk.setOnClickListener(v -> {
 
             if (isValidFields()) {
-                uploadImagesToServer();
+                sendDetailsToServer();
+                //uploadImagesToServer();
             }
         });
         alertDialog.show();
@@ -192,26 +194,71 @@ public class ProductsActivity extends AppCompatActivity {
                     while (currentImageSelected < dataClipCount) {
                         imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
                         uriArrayList.add(imageUri);
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (bitmap != null) {
+                            byte[] imageBytes = imageToByteArray(bitmap);
+                            String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                            //decodeStringToImage(encodedImage);
+
+                            imageStringArrayList.add(encodedImage);
+
+                            Log.e("products", "onActivityResult: " + encodedImage);
+                        }
+
                         currentImageSelected++;
                     }
 
                     imageCountTextview.setVisibility(View.VISIBLE);
                     imageCountTextview.setText(uriArrayList.size() + " images selected ");
-                    //addImagesTextview.setVisibility(View.GONE);
+
                 } else if (data.getData() != null) {
                     imageUri = data.getData();
                     uriArrayList.add(imageUri);
                     imageCountTextview.setVisibility(View.VISIBLE);
                     imageCountTextview.setText(uriArrayList.size() + " images selected ");
-                    //addImagesTextview.setVisibility(View.GONE);
+
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (bitmap != null) {
+                        byte[] imageBytes = imageToByteArray(bitmap);
+                        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                        //decodeStringToImage(encodedImage);
+
+                        imageStringArrayList.add(encodedImage);
+
+                        //Log.e("products", "onActivityResult: " + encodedImage);
+                    }
                 }
             }
         }
     }
 
-    private void sendDetailsToServer() {
-        ProductsSendObject productsSendObject = new ProductsSendObject();
+    private void decodeStringToImage(String encodedImage) {
+        byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);// actual conversion to Base64 String Image
+        Bitmap bmp = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+    }
 
+    private byte[] imageToByteArray(Bitmap bitmapImage) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        return baos.toByteArray();
+    }
+
+    private void sendDetailsToServer() {
+        AppUtils.initLoadingDialog(this);
+
+        ProductsSendObject productsSendObject = new ProductsSendObject();
         productsSendObject.setProductName(dialogproductName.getText().toString().trim());
         productsSendObject.setProductCategory(dialogproductCategory.getText().toString().trim());
         productsSendObject.setProductColor(dialogproductColor.getText().toString().trim());
@@ -219,13 +266,22 @@ public class ProductsActivity extends AppCompatActivity {
         productsSendObject.setNumberInStock(dialogProductQuantity.getText().toString().trim());
         productsSendObject.setProductDiscountedAmount(dialogproductDiscountedAmount.getText().toString().trim());
         productsSendObject.setProductDescription(dialogproductDescription.getText().toString().trim());
-        productsSendObject.setProductImages(productImageList);
         productsSendObject.setProductActive(isLive);
         if (dialogproductDiscountedAmount.getText().toString().trim().isEmpty()) {
             productsSendObject.setOnPromo(false);
         } else {
             productsSendObject.setOnPromo(true);
         }
+        productImageList = new ArrayList<>();
+        ProductImage productImage = new ProductImage();
+        if (uriArrayList.size() > 0) {
+            for (int i = 0; i < uriArrayList.size(); i++) {
+                productImage.setImageString(imageStringArrayList.get(i));
+                productImageList.add(productImage);
+            }
+        }
+
+        productsSendObject.setProductImages(productImageList);
 
         Gson gson = new Gson();
         String jsonObject = gson.toJson(productsSendObject);
@@ -255,45 +311,6 @@ public class ProductsActivity extends AppCompatActivity {
         });
     }
 
-    private void uploadImagesToServer() {
-        AppUtils.initLoadingDialog(this);
-
-        StorageReference imageFolder = FirebaseStorage.getInstance().getReference().child("images");
-
-        for (uploadCount = 0; uploadCount < uriArrayList.size(); uploadCount++) {
-            Uri individualImage = uriArrayList.get(uploadCount);
-
-            Cursor cursor = getContentResolver().query(individualImage, null, null, null, null);
-            int nameIndex = Objects.requireNonNull(cursor).getColumnIndex(OpenableColumns.DISPLAY_NAME);
-            cursor.moveToFirst();
-            final StorageReference imageName = imageFolder.child(cursor.getString(nameIndex));
-
-            imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String url = String.valueOf(uri);
-                            storeLinkUrl(url, cursor.getString(nameIndex));
-
-                            productImages.setImageName(cursor.getString(nameIndex));
-                            productImages.setImageUrl(url);
-                            productImageList.add(productImages);
-                            Toast.makeText(ProductsActivity.this, "upload count is " + uploadCount + " and array is " + uriArrayList.size(), Toast.LENGTH_SHORT).show();
-                            if (uploadCount == uriArrayList.size()) {
-                                //Toast.makeText(ProductsActivity.this, "Image/s Uploaded successfully", Toast.LENGTH_SHORT).show();
-
-                                new Handler().postDelayed(ProductsActivity.this::sendDetailsToServer, 1200);
-
-                            }
-                        }
-                    });
-                }
-            }).addOnFailureListener(e -> Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show());
-        }
-
-    }
 
     private boolean isValidFields() {
         if (Objects.requireNonNull(dialogproductName.getText()).toString().trim().isEmpty()) {
@@ -369,7 +386,9 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
+    }
 }

@@ -79,5 +79,9 @@ public class UsersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
+    }
 }

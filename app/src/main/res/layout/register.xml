@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/arkandarcs_lighter_gray"
+    android:background="@drawable/ic_undraw_in_no_time"
+    android:backgroundTint="@color/arkandarcs_lighter_gray"
     android:orientation="vertical"
     tools:context=".views.register.RegisterActivity">
 
@@ -13,12 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_35sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/rubik_regular"
         android:gravity="start"
         android:text="Welcome,"
         android:textColor="@color/colorPrimary"
-        android:textSize="31sp" />
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
         android:gravity="start"
         android:text="Sign up to continue"
         android:textColor="@color/arkandarcs_gray_color"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -375,7 +376,6 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_weight="0.1"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3223394163127231/7226149794" />

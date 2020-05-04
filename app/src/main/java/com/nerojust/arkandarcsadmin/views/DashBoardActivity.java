@@ -49,4 +49,10 @@ public class DashBoardActivity extends AppCompatActivity {
     private void onSuperBackPressed() {
         super.onBackPressed();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
+    }
 }
