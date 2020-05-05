@@ -29,6 +29,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="completed">Complete</string>
     <string name="shipped">Shipped</string>
-    <string name="ready_to_ship">Ready to Ship</string>
+    <string name="ready_to_ship">Ready</string>
     <string name="pending">Pending</string>
+    <string name="do_you_want_to_delete_this_image">Do you want to delete images?</string>
 </resources>

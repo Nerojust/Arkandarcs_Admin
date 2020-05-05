@@ -61,6 +61,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".views.products.AddProductActivity"
+            android:parentActivityName=".views.products.ProductsActivity"
             android:label="Add Product" />
     </application>
 
