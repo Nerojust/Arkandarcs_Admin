@@ -1,4 +1,4 @@
-package com.nerojust.arkandarcsadmin.models.orders;
+package com.nerojust.arkandarcsadmin.models.orders.rts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

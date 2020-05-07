@@ -18,6 +18,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -44,6 +45,16 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build();
+
+
+
+
         OkHttpClient okHttpClientNetwork = new OkHttpClient().newBuilder()
                 .callTimeout(2, TimeUnit.MINUTES)
                 .connectTimeout(Constants.CONNECTION_TIMEOUT, TimeUnit.MINUTES)
@@ -57,6 +68,7 @@ public class MyApplication extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClientNetwork)
                 .client(httpClient.build())
+                //.client(client.newBuilder().build())
                 .baseUrl(Constants.BASE_URL_ARKANDARCS)
                 .build();
 

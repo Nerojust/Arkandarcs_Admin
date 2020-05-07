@@ -18,6 +18,8 @@ public class SessionManager {
     private static final String TOKEN = "TOKEN";
     private static final String PRODUCT_ID = "PRODUCT_ID";
     private static final String ADD_PRODUCT = "ADD_PRODUCT";
+    private static final String ADD_PRODUCTS = "ADD_PRODUCTS";
+    private static final String DELETE_PRODUCTS = "DELETE_PRODUCTS";
 
 
     private final SharedPreferences pref = getSharedPreferences();
@@ -198,4 +200,21 @@ public class SessionManager {
     public void setAddProductJson(String addproduct) {
         setStringPreference(ADD_PRODUCT, addproduct);
     }
+
+    public boolean getFromAddProducts(){
+        return getBooleanPreference(ADD_PRODUCTS);
+    }
+
+    public void setFromAddProducts(boolean add) {
+        setBooleanPreference(ADD_PRODUCTS,add);
+    }
+
+    public boolean getFromDetailsProducts(){
+        return getBooleanPreference(DELETE_PRODUCTS);
+    }
+
+    public void setFromDetailsProducts(boolean add) {
+        setBooleanPreference(DELETE_PRODUCTS,add);
+    }
+
 }

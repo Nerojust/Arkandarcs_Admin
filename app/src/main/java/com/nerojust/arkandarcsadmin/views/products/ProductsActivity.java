@@ -17,12 +17,14 @@ import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.adapters.ProductAdapter;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.utils.SessionManager;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 
 public class ProductsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        sessionManager = AppUtils.getSessionManagerInstance();
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
         swipeRefreshLayout.setOnRefreshListener(this::getAllProducts);
 
@@ -111,7 +114,14 @@ public class ProductsActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
+        if (sessionManager.getFromAddProducts()) {
+            getAllProducts();
+            sessionManager.setFromAddProducts(false);
+        } else if (sessionManager.getFromDetailsProducts()) {
+            getAllProducts();
+            sessionManager.setFromDetailsProducts(false);
+        }
         overridePendingTransition(R.anim.fade_enter, R.anim.fade_out);
+        super.onStart();
     }
 }

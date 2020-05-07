@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
+import com.nerojust.arkandarcsadmin.models.orders.OrdersResponse;
 import com.nerojust.arkandarcsadmin.models.products.DeleteProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
@@ -20,6 +21,7 @@ import com.nerojust.arkandarcsadmin.utils.SessionManager;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.DeleteInterfaceR;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.OrdersInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.RegisterInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.UpdateProductInterface;
@@ -177,6 +179,7 @@ public class WebServiceRequestMaker {
             }
         });
     }
+
     public void deleteOneProduct(DeleteInterfaceR deleteInterfacer) {
         Call<DeleteProductResponse> call = deleteInterface.deleteOneProduct(sessionManager.getProductId());
         call.enqueue(new Callback<DeleteProductResponse>() {
@@ -266,4 +269,123 @@ public class WebServiceRequestMaker {
             }
         });
     }
+
+    public void getAllNewOrders(OrdersInterface ordersInterface) {
+        Call<OrdersResponse> call = getInterface.getOneStatus("Pending");
+        call.enqueue(new Callback<OrdersResponse>() {
+            @Override
+            public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
+                if (response.isSuccessful()) {
+                    OrdersResponse ordersResponse = response.body();
+                    ordersInterface.onSuccess(ordersResponse);
+                } else {
+                    ordersInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrdersResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        ordersInterface.onError("Network Error, please try again");
+                    } else {
+                        ordersInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    ordersInterface.onError("Network error");
+                }
+            }
+        });
+    }
+    public void getAllrtsOrders(OrdersInterface ordersInterface) {
+        Call<OrdersResponse> call = getInterface.getOneStatus("Ready to ship");
+        call.enqueue(new Callback<OrdersResponse>() {
+            @Override
+            public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
+                if (response.isSuccessful()) {
+                    OrdersResponse ordersResponse = response.body();
+                    ordersInterface.onSuccess(ordersResponse);
+                } else {
+                    ordersInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrdersResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        ordersInterface.onError("Network Error, please try again");
+                    } else {
+                        ordersInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    ordersInterface.onError("Network error");
+                }
+            }
+        });
+    }
+    public void getAllShippedorders(OrdersInterface ordersInterface) {
+        Call<OrdersResponse> call = getInterface.getOneStatus("Shipped");
+        call.enqueue(new Callback<OrdersResponse>() {
+            @Override
+            public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
+                if (response.isSuccessful()) {
+                    OrdersResponse ordersResponse = response.body();
+                    ordersInterface.onSuccess(ordersResponse);
+                } else {
+                    ordersInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrdersResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        ordersInterface.onError("Network Error, please try again");
+                    } else {
+                        ordersInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    ordersInterface.onError("Network error");
+                }
+            }
+        });
+    }
+    public void getAllCompletedrders(OrdersInterface ordersInterface) {
+        Call<OrdersResponse> call = getInterface.getOneStatus("Completed");
+        call.enqueue(new Callback<OrdersResponse>() {
+            @Override
+            public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
+                if (response.isSuccessful()) {
+                    OrdersResponse ordersResponse = response.body();
+                    ordersInterface.onSuccess(ordersResponse);
+                } else {
+                    ordersInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrdersResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        ordersInterface.onError("Network Error, please try again");
+                    } else {
+                        ordersInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    ordersInterface.onError("Network error");
+                }
+            }
+        });
+    }
+
+
 }

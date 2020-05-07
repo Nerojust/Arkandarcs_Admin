@@ -27,6 +27,7 @@ import com.nerojust.arkandarcsadmin.models.products.ProductImage;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductsSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.utils.SessionManager;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.DeleteInterfaceR;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.UpdateProductInterface;
@@ -37,6 +38,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private String productAmount;
     private String productColor;
     private String productDiscountedAmount;
+    private SessionManager sessionManager;
     private String productDescription;
     private String numberInStock;
     private boolean isLive;
@@ -52,6 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextInputEditText dialogproductDescription;
     private TextInputEditText dialogProductQuantity;
     private Switch dialogSwitch;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +66,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        sessionManager = AppUtils.getSessionManagerInstance();
         getExtrasFromIntent();
         initViews();
         initListeners();
     }
 
     private void initViews() {
+
         TextView productNameTextview = findViewById(R.id.productName);
         TextView productCategoryTextview = findViewById(R.id.productCategory);
         TextView productAmountTextview = findViewById(R.id.productAmount);
@@ -111,6 +116,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         }
     }
+
     private Bitmap decodeStringToImage(String encodedImage) {
         Bitmap bmp = null;
         if (encodedImage != null) {
@@ -119,12 +125,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
         return bmp;
     }
+
     private void editProduct() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View view = LayoutInflater.from(this).inflate(R.layout.edit_product_layout, viewGroup, false);
         builder.setView(view);
-        AlertDialog alertDialog = builder.create();
+        alertDialog = builder.create();
 
         Button btnOk = view.findViewById(R.id.saveButton);
 
@@ -158,6 +165,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private void sendDetailsToServer() {
         AppUtils.initLoadingDialog(this);
+
         ProductImage productImages = new ProductImage();
         productImages.setImageName("This_new_name.jpg");
         productImages.setImageUrl(productImageString);
@@ -183,8 +191,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UpdateProductResponse updateProductResponse) {
                 Toast.makeText(ProductDetailsActivity.this, updateProductResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                sessionManager.setFromDetailsProducts(true);
+                alertDialog.dismiss();
                 finish();
-                recreate();
                 AppUtils.dismissLoadingDialog();
             }
 
@@ -271,8 +280,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DeleteProductResponse deleteProductResponse) {
                 Toast.makeText(ProductDetailsActivity.this, deleteProductResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                sessionManager.setFromDetailsProducts(true);
                 finish();
-                recreate();
             }
 
             @Override
@@ -292,7 +301,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private void getExtrasFromIntent() {
         Intent intent = getIntent();
         productId = intent.getStringExtra("productId");
-        AppUtils.getSessionManagerInstance().setProductId(productId);
+        sessionManager.setProductId(productId);
+
         productName = intent.getStringExtra("productName");
         productCategory = intent.getStringExtra("productCategory");
         productAmount = intent.getStringExtra("productAmount");
