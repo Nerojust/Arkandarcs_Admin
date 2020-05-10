@@ -64,6 +64,7 @@ public class AppUtils {
     private static ProgressDialog progress;
     private static LottieAnimationView lottieAnimationView;
     private static AlertDialog alertDialog;
+    private static File fileFolder;
 
     public static SessionManager getSessionManagerInstance() {
         if (sessionManager == null) {
@@ -385,15 +386,53 @@ public class AppUtils {
         return filename;
 
     }
-    public static String getFilename() {
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "MyFolder/Images");
-        if (!file.exists()) {
-            file.mkdirs();
+
+    public static boolean deleteDirectory(File path) {
+        if (path.exists()) {
+            File[] files = path.listFiles();
+            if (files == null) {
+                return false;
+            }
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    boolean wasSuccessful = file.delete();
+                    if (wasSuccessful) {
+                        Log.i("Deleted ", "successfully");
+                    }
+                }
+            }
         }
-        String uriSting = (file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg");
+        return (path.delete());
+    }
+
+    // For to Delete the directory inside list of files and inner Directory
+    public static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        // The directory is now empty so delete it
+        return dir.delete();
+    }
+
+    public static String getFilename() {
+        fileFolder = new File(Environment.getExternalStorageDirectory().getPath(), "ArkandArcs/products");
+        if (!fileFolder.exists()) {
+            fileFolder.mkdirs();
+        }
+        String uriSting = (fileFolder.getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg");
         return uriSting;
 
     }
+
     public static String getRealPathFromURI(Context context, Uri uri) {
         Uri queryUri = MediaStore.Files.getContentUri("external");
         String columnData = MediaStore.Files.FileColumns.DATA;
@@ -436,6 +475,7 @@ public class AppUtils {
 
         return imagePath;
     }
+
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -454,6 +494,7 @@ public class AppUtils {
 
         return inSampleSize;
     }
+
     public static boolean hasImage(@NonNull ImageView view) {
         Drawable drawable = view.getDrawable();
         boolean hasImage = (drawable != null);

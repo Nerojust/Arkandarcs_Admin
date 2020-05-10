@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,8 +15,10 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,14 +34,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.models.products.ProductImage;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
@@ -48,6 +47,7 @@ import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -57,6 +57,10 @@ import java.util.Objects;
 
 public class AddProductActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 123;
+    private static File fileFolder;
+    final String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+    };
     private TextInputEditText dialogproductName;
     private TextInputEditText dialogproductCategory;
     private TextInputEditText dialogproductColor;
@@ -84,62 +88,75 @@ public class AddProductActivity extends AppCompatActivity {
         initViews();
         iniListeners();
     }
-    private void askUserForPermission() {
-        Dexter.withActivity(this)
-                .withPermissions(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        boolean allGranted = report.areAllPermissionsGranted();
-                        boolean anyDenied = report.isAnyPermissionPermanentlyDenied();
-                        if (!anyDenied) {
-                            if (allGranted) {
-                                vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                                sessionManagerCustomer = new SessionManagerCustomer();
-                                getTime();
-                                initViews();
-                                initListeners();
-                            } else {
-                                askUserForPermission();
-                            }
-                        } else {
-                            showSettingsDialog();
-                        }
-                    }
 
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
-    private void showSettingsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
-        builder.setTitle(getResources().getString(R.string.need_permission));
-        builder.setMessage(getResources().getString(R.string.settings_permission_request));
-        builder.setPositiveButton(getResources().getString(R.string.goto_settings), (dialog, which) -> {
-            dialog.cancel();
-            openSettings();
-        });
-        builder.setNegativeButton(getResources().getString(R.string.cancel), (dialog, which) -> dialog.cancel());
-        builder.show();
-
-    }
-
-    private void openSettings() {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", getPackageName(), null);
-        intent.setData(uri);
-        startActivityForResult(intent, 101);
-    }
+    //    private void askUserForPermission() {
+//        Dexter.withActivity(this)
+//                .withPermissions(
+//                        Manifest.permission.CAMERA,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE)
+//                .withListener(new MultiplePermissionsListener() {
+//                    @Override
+//                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                        boolean allGranted = report.areAllPermissionsGranted();
+//                        boolean anyDenied = report.isAnyPermissionPermanentlyDenied();
+//                        if (!anyDenied) {
+//                            if (allGranted) {
+//                                vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//                                sessionManagerCustomer = new SessionManagerCustomer();
+//                                getTime();
+//                                initViews();
+//                                initListeners();
+//                            } else {
+//                                askUserForPermission();
+//                            }
+//                        } else {
+//                            showSettingsDialog();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                        token.continuePermissionRequest();
+//                    }
+//                }).check();
+//    }
+//
+//    private void showSettingsDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
+//        builder.setTitle(getResources().getString(R.string.need_permission));
+//        builder.setMessage(getResources().getString(R.string.settings_permission_request));
+//        builder.setPositiveButton(getResources().getString(R.string.goto_settings), (dialog, which) -> {
+//            dialog.cancel();
+//            openSettings();
+//        });
+//        builder.setNegativeButton(getResources().getString(R.string.cancel), (dialog, which) -> dialog.cancel());
+//        builder.show();
+//
+//    }
+//
+//    private void openSettings() {
+//        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//        Uri uri = Uri.fromParts("package", getPackageName(), null);
+//        intent.setData(uri);
+//        startActivityForResult(intent, 101);
+//    }
     @SuppressLint("NewApi")
     private void iniListeners() {
 
-        addImagesTextview.setOnClickListener(v -> openGallery());
+        addImagesTextview.setOnClickListener(v -> {
+
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    ActivityCompat.requestPermissions(this, permissions, 101);
+                }
+            } else {
+                openGallery();
+            }
+
+        });
         deleteImagesFromGallery.setOnClickListener(v -> {
             if (uriArrayList.size() > 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -216,7 +233,7 @@ public class AddProductActivity extends AppCompatActivity {
                         uriArrayList.add(imageUri);
                         Bitmap bitmap = null;
                         try {
-                            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.fromFile(new File(rr)));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -237,10 +254,11 @@ public class AddProductActivity extends AppCompatActivity {
                     imageCountTextview.setVisibility(View.VISIBLE);
                     imageCountTextview.setText(uriArrayList.size() + " images selected ");
                     deleteImagesFromGallery.setVisibility(View.VISIBLE);
+                    deleteDirectory(fileFolder);
 
                 } else if (data.getData() != null) {
                     imageUri = data.getData();
-                    String rr = AppUtils.compressImage(this, imageUri);
+                    String rr = compressImage(this, imageUri);
                     Log.e("Images", "onActivityResult: " + rr);
                     uriArrayList.add(imageUri);
                     imageCountTextview.setVisibility(View.VISIBLE);
@@ -248,7 +266,7 @@ public class AddProductActivity extends AppCompatActivity {
                     deleteImagesFromGallery.setVisibility(View.VISIBLE);
                     Bitmap bitmap = null;
                     try {
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.fromFile(new File(rr)));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -257,6 +275,8 @@ public class AddProductActivity extends AppCompatActivity {
                         byte[] imageBytes = imageToByteArray(bitmap);
                         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                         imageStringArrayList.add(encodedImage);
+                        deleteDirectory(fileFolder);
+                        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -265,7 +285,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     private byte[] imageToByteArray(Bitmap bitmapImage) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         return baos.toByteArray();
     }
 
@@ -366,14 +386,10 @@ public class AddProductActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        AppUtils.getSessionManagerInstance().setFromAddProducts(true);
-    }
 
-    private String compressCustomerImageToLosslessFormatAgain(String imageUri) {
-        String filePath = getRealPathFromURI(imageUri);
+    public String compressImage(Context context, Uri uri) {
+
+        String filePath = getRealPathFromURI(context, uri);
         Bitmap scaledBitmap = null;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -444,7 +460,7 @@ public class AddProductActivity extends AppCompatActivity {
         Matrix scaleMatrix = new Matrix();
         scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
 
-        Canvas canvas = new Canvas(Objects.requireNonNull(scaledBitmap));
+        Canvas canvas = new Canvas(scaledBitmap);
         canvas.setMatrix(scaleMatrix);
         canvas.drawBitmap(bmp, middleX - bmp.getWidth() / 2, middleY - bmp.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
 
@@ -453,22 +469,19 @@ public class AddProductActivity extends AppCompatActivity {
         try {
             exif = new ExifInterface(filePath);
 
-            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 0);
+            int orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION, 0);
             Log.d("EXIF", "Exif: " + orientation);
             Matrix matrix = new Matrix();
-            switch (orientation) {
-                case 6:
-                    matrix.postRotate(90);
-                    Log.d("EXIF", "Exif: " + orientation);
-                    break;
-                case 3:
-                    matrix.postRotate(180);
-                    Log.d("EXIF", "Exif: " + orientation);
-                    break;
-                case 8:
-                    matrix.postRotate(270);
-                    Log.d("EXIF", "Exif: " + orientation);
-                    break;
+            if (orientation == 6) {
+                matrix.postRotate(90);
+                Log.d("EXIF", "Exif: " + orientation);
+            } else if (orientation == 3) {
+                matrix.postRotate(180);
+                Log.d("EXIF", "Exif: " + orientation);
+            } else if (orientation == 8) {
+                matrix.postRotate(270);
+                Log.d("EXIF", "Exif: " + orientation);
             }
             scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
                     scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix,
@@ -477,8 +490,8 @@ public class AddProductActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        FileOutputStream out;
-        String filename = path;
+        FileOutputStream out = null;
+        String filename = getFilename();
         try {
             out = new FileOutputStream(filename);
 
@@ -488,23 +501,85 @@ public class AddProductActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         return filename;
 
     }
 
-    private String getRealPathFromURI(String contentURI) {
-        Uri contentUri = Uri.parse(contentURI);
-        @SuppressLint("Recycle") Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
-        if (cursor == null) {
-            return contentUri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(index);
+    public boolean deleteDirectory(File path) {
+        if (path.exists()) {
+            File[] files = path.listFiles();
+            if (files == null) {
+                return false;
+            }
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    boolean wasSuccessful = file.delete();
+                    if (wasSuccessful) {
+                        //Toast.makeText(this, "Folder deleted successfully", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         }
+        return (path.delete());
     }
 
-    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    public String getFilename() {
+        fileFolder = new File(Environment.getExternalStorageDirectory().getPath(), "ArkandArcs/products");
+        if (!fileFolder.exists()) {
+            fileFolder.mkdirs();
+        }
+        String uriSting = (fileFolder.getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg");
+        return uriSting;
+
+    }
+
+    public String getRealPathFromURI(Context context, Uri uri) {
+        Uri queryUri = MediaStore.Files.getContentUri("external");
+        String columnData = MediaStore.Files.FileColumns.DATA;
+        String columnSize = MediaStore.Files.FileColumns.SIZE;
+
+        String[] projectionData = {MediaStore.Files.FileColumns.DATA};
+
+
+        String name = null;
+        String size = null;
+
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        if ((cursor != null) && (cursor.getCount() > 0)) {
+            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+
+            cursor.moveToFirst();
+
+            name = cursor.getString(nameIndex);
+            size = cursor.getString(sizeIndex);
+
+            cursor.close();
+        }
+
+        String imagePath = "";
+        if ((name != null) && (size != null)) {
+            String selectionNS = columnData + " LIKE '%" + name + "' AND " + columnSize + "='" + size + "'";
+
+            Cursor cursorLike = context.getContentResolver().query(queryUri, projectionData, selectionNS, null, null);
+
+            if ((cursorLike != null) && (cursorLike.getCount() > 0)) {
+                cursorLike.moveToFirst();
+                int indexData = cursorLike.getColumnIndex(columnData);
+                if (cursorLike.getString(indexData) != null) {
+                    imagePath = cursorLike.getString(indexData);
+                }
+                cursorLike.close();
+            }
+        }
+
+        return imagePath;
+    }
+
+    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
@@ -519,6 +594,14 @@ public class AddProductActivity extends AppCompatActivity {
         while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
             inSampleSize++;
         }
+
         return inSampleSize;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        AppUtils.getSessionManagerInstance().setFromAddProducts(true);
     }
 }

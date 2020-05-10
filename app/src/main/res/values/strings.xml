@@ -32,4 +32,14 @@
     <string name="ready_to_ship">Ready</string>
     <string name="pending">Pending</string>
     <string name="do_you_want_to_delete_this_image">Do you want to delete images?</string>
+    <string name="quantity">Quantity</string>
+    <string name="live">Live</string>
+    <string name="product_description">Product Description</string>
+    <string name="add_images">Add images</string>
+    <string name="amount">Amount</string>
+    <string name="discount_amount">Discount Amount</string>
+    <string name="product_category">Product Category</string>
+    <string name="product_color">Product Color</string>
+    <string name="product_name">Product Name</string>
+    <string name="create_product">Create Product</string>
 </resources>

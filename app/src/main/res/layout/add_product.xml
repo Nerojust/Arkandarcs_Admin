@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rubik_regular"
-                    android:hint="Product Name"
+                    android:hint="@string/product_name"
                     android:inputType="text"
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -49,7 +49,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rubik_regular"
-                        android:hint="Product Category"
+                        android:hint="@string/product_category"
                         android:inputType="text"
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="15sp" />
@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rubik_regular"
-                        android:hint="Product Color"
+                        android:hint="@string/product_color"
                         android:inputType="text"
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="15sp" />
@@ -88,8 +88,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rubik_regular"
-                        android:hint="Amount"
-                        android:inputType="text"
+                        android:hint="@string/amount"
+                        android:inputType="number"
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -105,8 +105,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rubik_regular"
-                        android:hint="Discount Amount"
-                        android:inputType="text"
+                        android:hint="@string/discount_amount"
+                        android:inputType="number"
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -127,8 +127,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rubik_regular"
-                        android:hint="Quantity"
-                        android:inputType="text"
+                        android:hint="@string/quantity"
+                        android:inputType="number"
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -141,7 +141,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:switchPadding="@dimen/_15sdp"
-                    android:text="Live" />
+                    android:text="@string/live" />
             </LinearLayout>
 
 
@@ -155,7 +155,7 @@
                     android:layout_height="135dp"
                     android:fontFamily="@font/rubik_regular"
                     android:gravity="top"
-                    android:hint="Product Description"
+                    android:hint="@string/product_description"
                     android:inputType="textMultiLine"
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -176,7 +176,7 @@
                     android:layout_weight="1"
                     android:drawableLeft="@android:drawable/ic_input_add"
                     android:gravity="start|center"
-                    android:text="Add images"
+                    android:text="@string/add_images"
                     android:textColor="@color/arkandarcs_green"
                     android:textSize="15sp" />
 
@@ -210,7 +210,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/dashboard_buttons"
                 android:fontFamily="@font/rubik_regular"
-                android:text="Create Product"
+                android:text="@string/create_product"
                 android:textColor="@color/arkandarcs_white"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
