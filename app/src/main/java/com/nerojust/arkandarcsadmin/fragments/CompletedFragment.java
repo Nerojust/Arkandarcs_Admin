@@ -16,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.adapters.CompletedOrderAdapter;
 import com.nerojust.arkandarcsadmin.models.orders.OrdersResponse;
-import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.OrdersInterface;
 
@@ -66,7 +65,7 @@ public class CompletedFragment extends Fragment {
     }
 
     private void getAllOrders() {
-        AppUtils.initLoadingDialog(getActivity());
+        swipeRefreshLayout.setRefreshing(true);
 
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
         webServiceRequestMaker.getAllCompletedrders(new OrdersInterface() {
@@ -77,7 +76,6 @@ public class CompletedFragment extends Fragment {
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                AppUtils.dismissLoadingDialog();
             }
 
             @Override
@@ -86,7 +84,6 @@ public class CompletedFragment extends Fragment {
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                AppUtils.dismissLoadingDialog();
             }
 
             @Override
@@ -95,7 +92,6 @@ public class CompletedFragment extends Fragment {
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                AppUtils.dismissLoadingDialog();
             }
         });
     }

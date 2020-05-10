@@ -25,11 +25,12 @@
             android:layout_weight="3"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="@dimen/_8sdp">
+            android:padding="@dimen/_4sdp">
 
             <ImageView
                 android:layout_width="58dp"
                 android:layout_height="46dp"
+                android:id="@+id/productImage"
                 android:src="@drawable/arkandarcs_logo" />
 
             <LinearLayout
@@ -51,7 +52,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/rubik_regular"
                         android:textColor="@color/arkandarcs_black"
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
                         tools:text="7283947928" />
 
@@ -61,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/rubik_regular"
-                        android:textSize="@dimen/_9ssp"
+                        android:textSize="@dimen/_8ssp"
                         tools:text="4th May 2020" />
                 </LinearLayout>
 
@@ -83,7 +84,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
                             android:text="Quantity:"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -93,7 +94,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
                             android:text="Amount:"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -103,7 +104,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
                             android:text="Status:"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -120,7 +121,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_10ssp"
                             tools:text="1" />
 
                         <TextView
@@ -130,7 +131,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_10ssp"
                             tools:text="N 5,980:" />
 
                         <TextView
@@ -141,7 +142,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
                             android:textColor="@color/arkandarcs_green"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold"
                             tools:text="Completed" />
                     </LinearLayout>

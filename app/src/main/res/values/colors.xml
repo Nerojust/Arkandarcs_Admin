@@ -5,6 +5,9 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="arkandarcs_red_color">#F11808</color>
+    <color name="arkandarcs_blue">#0827F1</color>
+    <color name="arkandarcs_purple">#962BE4</color>
+
     <color name="arkandarcs_green">#65A067</color>
 
     <color name="arkandarcs_light_gray">#D4D4D6</color>
@@ -15,4 +18,5 @@
     <color name="arkandarcs_black">#000000</color>
     <color name="arkandarcs_light_red">#F37171</color>
     <color name="arkandarcs_splash_color">#E64405</color>
+    <color name="white">#ffffff</color>
 </resources>

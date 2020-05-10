@@ -89,61 +89,8 @@ public class AddProductActivity extends AppCompatActivity {
         iniListeners();
     }
 
-    //    private void askUserForPermission() {
-//        Dexter.withActivity(this)
-//                .withPermissions(
-//                        Manifest.permission.CAMERA,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                        Manifest.permission.READ_EXTERNAL_STORAGE)
-//                .withListener(new MultiplePermissionsListener() {
-//                    @Override
-//                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-//                        boolean allGranted = report.areAllPermissionsGranted();
-//                        boolean anyDenied = report.isAnyPermissionPermanentlyDenied();
-//                        if (!anyDenied) {
-//                            if (allGranted) {
-//                                vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-//                                sessionManagerCustomer = new SessionManagerCustomer();
-//                                getTime();
-//                                initViews();
-//                                initListeners();
-//                            } else {
-//                                askUserForPermission();
-//                            }
-//                        } else {
-//                            showSettingsDialog();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-//                        token.continuePermissionRequest();
-//                    }
-//                }).check();
-//    }
-//
-//    private void showSettingsDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
-//        builder.setTitle(getResources().getString(R.string.need_permission));
-//        builder.setMessage(getResources().getString(R.string.settings_permission_request));
-//        builder.setPositiveButton(getResources().getString(R.string.goto_settings), (dialog, which) -> {
-//            dialog.cancel();
-//            openSettings();
-//        });
-//        builder.setNegativeButton(getResources().getString(R.string.cancel), (dialog, which) -> dialog.cancel());
-//        builder.show();
-//
-//    }
-//
-//    private void openSettings() {
-//        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//        Uri uri = Uri.fromParts("package", getPackageName(), null);
-//        intent.setData(uri);
-//        startActivityForResult(intent, 101);
-//    }
     @SuppressLint("NewApi")
     private void iniListeners() {
-
         addImagesTextview.setOnClickListener(v -> {
 
             if (Build.VERSION.SDK_INT >= 23) {
@@ -229,6 +176,7 @@ public class AddProductActivity extends AppCompatActivity {
                     while (currentImageSelected < dataClipCount) {
                         imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
                         String rr = AppUtils.compressImage(this, imageUri);
+
                         Log.e("Images", "onActivityResult: " + rr);
                         uriArrayList.add(imageUri);
                         Bitmap bitmap = null;
@@ -241,13 +189,9 @@ public class AddProductActivity extends AppCompatActivity {
                         if (bitmap != null) {
                             byte[] imageBytes = imageToByteArray(bitmap);
                             String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-                            //decodeStringToImage(encodedImage);
-
                             imageStringArrayList.add(encodedImage);
-
                             Log.e("products", "onActivityResult: " + encodedImage);
                         }
-
                         currentImageSelected++;
                     }
 

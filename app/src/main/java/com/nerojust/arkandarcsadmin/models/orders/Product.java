@@ -24,6 +24,18 @@ public class Product {
     @Expose
     private String productQuantity;
 
+    @SerializedName("productImage")
+    @Expose
+    private String productImage;
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
     public String getProductId() {
         return productId;
     }

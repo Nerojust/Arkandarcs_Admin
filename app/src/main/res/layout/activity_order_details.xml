@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.nerojust.arkandarcsadmin.views.orders.OrderDetailsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="10dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp">
+
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="67dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/arkandarcs_logo" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productName_tv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:fontFamily="@font/rubik_regular"
+                                android:textColor="@color/arkandarcs_black"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold"
+                                tools:text="Black X6 smartwatch" />
+
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/arkandarcs_light_gray" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:text="Quantity:"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:text="Amount:"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:text="Status:"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3.8"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/quantity_tv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:textSize="@dimen/_11ssp"
+                                    tools:text="1" />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:background="@color/arkandarcs_light_gray" />
+                                <TextView
+                                    android:id="@+id/amount_tv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:textSize="@dimen/_11ssp"
+                                    tools:text="N 5,980:" />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:background="@color/arkandarcs_light_gray" />
+                                <TextView
+                                    android:id="@+id/status_tv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/rubik_regular"
+                                    android:textColor="@color/arkandarcs_green"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:textStyle="bold"
+                                    tools:text="Completed" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Shipping cost:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="N2500" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Voucher:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="N0.0" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Tax:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tax_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="N302.9" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Total:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textColor="@color/arkandarcs_black"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
+                        tools:text="N5980" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="15dp"
+                    android:background="@color/arkandarcs_light_gray"
+                    android:fontFamily="@font/rubik_regular"
+                    android:gravity="center|top"
+                    android:text="Order Details:"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Order Number:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/orderNumber_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="RXDG72j82" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Date of Order:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/date_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="4th May, 2020" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Payment Method:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/paymentMethod_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="Cash on Delivery" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="15dp"
+                    android:background="@color/arkandarcs_light_gray"
+                    android:fontFamily="@font/rubik_regular"
+                    android:gravity="center"
+                    android:text="Customer Information:"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Name:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/name_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="ABADA OKAZI" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Phone Number:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/phoneNumber_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="080479373378" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Email Address:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/email_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="email@gmail.com" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Address:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/address_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="No 73 Abadie Street off Ikeja street." />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Nearest Busstop:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/busstop_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="That Building near the okro." />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Lga:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lga_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="Alimosho" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="State:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/state_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="Lagos" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/arkandarcs_light_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik_regular"
+                        android:text="Country:"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/country_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="Nigeria" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/processButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/dashboard_buttons"
+                    android:text="Proceess"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

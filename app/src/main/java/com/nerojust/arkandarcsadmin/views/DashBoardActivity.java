@@ -11,6 +11,7 @@ import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
 import com.nerojust.arkandarcsadmin.views.orders.OrdersActivity;
 import com.nerojust.arkandarcsadmin.views.products.ProductsActivity;
+import com.nerojust.arkandarcsadmin.views.transactions.TransactionsActivity;
 import com.nerojust.arkandarcsadmin.views.users.UsersActivity;
 
 public class DashBoardActivity extends AppCompatActivity {
@@ -23,9 +24,10 @@ public class DashBoardActivity extends AppCompatActivity {
         String firstName = getIntent().getStringExtra("first_name");
         nameTextview.setText("Welcome " + firstName);
 
-        findViewById(R.id.productsButton).setOnClickListener(v -> startActivity(new Intent(this, ProductsActivity.class)));
-        findViewById(R.id.usersButton).setOnClickListener(v -> startActivity(new Intent(this, UsersActivity.class)));
-        findViewById(R.id.ordersButton).setOnClickListener(v -> startActivity(new Intent(this, OrdersActivity.class)));
+        findViewById(R.id.productCardview).setOnClickListener(v -> startActivity(new Intent(this, ProductsActivity.class)));
+        findViewById(R.id.usersCardview).setOnClickListener(v -> startActivity(new Intent(this, UsersActivity.class)));
+        findViewById(R.id.ordersCardview).setOnClickListener(v -> startActivity(new Intent(this, OrdersActivity.class)));
+        findViewById(R.id.transactionCardview).setOnClickListener(v -> startActivity(new Intent(this, TransactionsActivity.class)));
     }
 
 

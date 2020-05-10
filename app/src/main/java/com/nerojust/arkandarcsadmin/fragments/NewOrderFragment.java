@@ -19,7 +19,6 @@ import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.adapters.PageViewModel;
 import com.nerojust.arkandarcsadmin.adapters.PendingOrderAdapter;
 import com.nerojust.arkandarcsadmin.models.orders.OrdersResponse;
-import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.OrdersInterface;
 
@@ -81,7 +80,7 @@ public class NewOrderFragment extends Fragment {
     }
 
     private void getAllOrders() {
-        AppUtils.initLoadingDialog(getActivity());
+        swipeRefreshLayout.setRefreshing(true);
 
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
         webServiceRequestMaker.getAllNewOrders(new OrdersInterface() {
@@ -92,7 +91,6 @@ public class NewOrderFragment extends Fragment {
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                AppUtils.dismissLoadingDialog();
             }
 
             @Override
@@ -101,7 +99,6 @@ public class NewOrderFragment extends Fragment {
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                AppUtils.dismissLoadingDialog();
             }
 
             @Override
@@ -110,7 +107,6 @@ public class NewOrderFragment extends Fragment {
                 if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                AppUtils.dismissLoadingDialog();
             }
         });
     }

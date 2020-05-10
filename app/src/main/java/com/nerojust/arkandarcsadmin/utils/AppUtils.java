@@ -26,6 +26,7 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -266,6 +267,14 @@ public class AppUtils {
         tvMessage.setText(message);
         btnOk.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();
+    }
+    public static Bitmap decodeStringToImage(String encodedImage) {
+        Bitmap bmp = null;
+        if (encodedImage != null) {
+            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);// actual conversion to Base64 String Image
+            bmp = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+        }
+        return bmp;
     }
 
     public static String compressImage(Context context, Uri uri) {

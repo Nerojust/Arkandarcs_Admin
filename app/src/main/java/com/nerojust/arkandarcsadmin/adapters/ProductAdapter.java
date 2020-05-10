@@ -113,7 +113,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Bitmap bmp = null;
         if (encodedImage != null) {
             byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);// actual conversion to Base64 String Image
-             bmp = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+            bmp = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
         }
         return bmp;
     }

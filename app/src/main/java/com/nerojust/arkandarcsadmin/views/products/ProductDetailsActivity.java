@@ -261,6 +261,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
             btnYes.setOnClickListener(v12 -> {
                 if (AppUtils.isNetworkAvailable(this)) {
+                    alertDialog.dismiss();
                     deleteProduct();
                 } else {
                     AppUtils.showSnackBar(getResources().getString(R.string.no_network_available), deleteProductImageview);
