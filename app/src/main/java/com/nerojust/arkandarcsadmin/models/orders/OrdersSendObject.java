@@ -1,19 +1,10 @@
-package com.nerojust.arkandarcsadmin.models.orders.rts;
+package com.nerojust.arkandarcsadmin.models.orders;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class OrdersSendObject {
 
-    @SerializedName("payment")
-    @Expose
-    private Payment payment;
-    @SerializedName("product")
-    @Expose
-    private Product product;
-    @SerializedName("_id")
-    @Expose
-    private String id;
     @SerializedName("orderId")
     @Expose
     private String orderId;
@@ -44,46 +35,15 @@ public class Result {
     @SerializedName("country")
     @Expose
     private String country;
-    @SerializedName("createdAt")
+    @SerializedName("payment")
     @Expose
-    private String createdAt;
-    @SerializedName("updatedAt")
-    @Expose
-    private String updatedAt;
-
+    private Payment payment;
     @SerializedName("orderStatus")
     @Expose
     private String orderStatus;
-    @SerializedName("__v")
+    @SerializedName("product")
     @Expose
-    private Integer v;
-    @SerializedName("links")
-    @Expose
-    private Links links;
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private Product product;
 
     public String getOrderId() {
         return orderId;
@@ -165,20 +125,12 @@ public class Result {
         this.country = country;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public String getOrderStatus() {
@@ -189,19 +141,12 @@ public class Result {
         this.orderStatus = orderStatus;
     }
 
-    public Integer getV() {
-        return v;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setV(Integer v) {
-        this.v = v;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
 }

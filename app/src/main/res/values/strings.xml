@@ -42,4 +42,14 @@
     <string name="product_color">Product Color</string>
     <string name="product_name">Product Name</string>
     <string name="create_product">Create Product</string>
+    <string name="ntel_url">http://www.ntel.com.ng/</string>
+    <string name="select_section_to_edit">Select field to edit</string>
+    <string-array name="slide_texts">
+        <item>Click to visit our website for more deals</item>
+        <item>Be first to know when mega deals arrive</item>
+        <item>Unlimited plans available for you</item>
+        <item>Enjoy a seamless experience</item>
+        <item>Enjoy buying data plans</item>
+        <item>Access is now a click away</item>
+    </string-array>
 </resources>

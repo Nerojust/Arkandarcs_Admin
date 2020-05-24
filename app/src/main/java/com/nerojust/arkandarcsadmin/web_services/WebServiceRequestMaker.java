@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.models.orders.OrdersResponse;
+import com.nerojust.arkandarcsadmin.models.orders.OrdersSendObject;
 import com.nerojust.arkandarcsadmin.models.products.DeleteProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsResponse;
 import com.nerojust.arkandarcsadmin.models.products.ProductsSendObject;
@@ -21,6 +22,7 @@ import com.nerojust.arkandarcsadmin.utils.SessionManager;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.AddProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.DeleteInterfaceR;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.OrderPatchInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.OrdersInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.RegisterInterface;
@@ -40,6 +42,7 @@ public class WebServiceRequestMaker {
     private final PostInterface postInterfaceService = retrofit.create(PostInterface.class);
     private final GetInterface getInterface = retrofit.create(GetInterface.class);
     private final PutInterface putInterface = retrofit.create(PutInterface.class);
+    private final PatchInterface patchInterface = retrofit.create(PatchInterface.class);
     private final DeleteInterface deleteInterface = retrofit.create(DeleteInterface.class);
     private SessionManager sessionManager = AppUtils.getSessionManagerInstance();
 
@@ -175,6 +178,35 @@ public class WebServiceRequestMaker {
                     Log.e("Login error", error);
                 } else {
                     productInterface.onError("Network error");
+                }
+            }
+        });
+    }
+    public void changeOrderStatusForOne(OrdersSendObject ordersSendObject, OrderPatchInterface orderPatchInterface) {
+        Call<OrdersResponse> call = patchInterface.editOrder(ordersSendObject, sessionManager.getProductId());
+        call.enqueue(new Callback<OrdersResponse>() {
+            @Override
+            public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
+                if (response.isSuccessful()) {
+                    OrdersResponse products = response.body();
+                    orderPatchInterface.onSuccess(products);
+                } else {
+                    orderPatchInterface.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrdersResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        orderPatchInterface.onError("Network Error, please try again");
+                    } else {
+                        orderPatchInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    orderPatchInterface.onError("Network error");
                 }
             }
         });

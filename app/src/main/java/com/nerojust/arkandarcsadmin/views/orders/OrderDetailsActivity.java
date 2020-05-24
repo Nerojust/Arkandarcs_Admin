@@ -115,7 +115,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         stateTextview.setText(state);
         countryTextview.setText(country);
 
-        if (imageString !=null){
+        if (imageString != null) {
             if (imageString != null || imageString != "") {
                 Bitmap bitmap = decodeStringToImage(imageString);
                 if (bitmap != null) {
@@ -132,8 +132,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private void initListeners() {
         processButton.setOnClickListener(v -> {
-
+            processOrder();
         });
+    }
+
+    private void processOrder() {
+        
     }
 
 

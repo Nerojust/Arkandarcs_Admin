@@ -11,36 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/nameTextview"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:fontFamily="@font/rubik_regular"
             android:gravity="center"
             android:textColor="@color/common_google_signin_btn_text_light_default"
             android:textSize="13sp"
             android:textStyle="bold"
-            tools:text="Hi, Fred Amata" />
+            tools:text="Hi, Freddy zAmata" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@id/nameTextview"
-            android:layout_weight="1"
-            android:src="@drawable/ic_undraw_smartwatch" />
-
+        <com.glide.slider.library.SliderLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="2.1">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -50,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
 

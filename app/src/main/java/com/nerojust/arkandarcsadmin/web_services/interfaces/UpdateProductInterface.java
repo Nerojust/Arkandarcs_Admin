@@ -4,7 +4,7 @@ import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
 
 public interface UpdateProductInterface {
 
-    void onSuccess(UpdateProductResponse updateProductInterface);
+    void onSuccess(UpdateProductResponse updateProductResponse);
 
     void onError(String error);
 

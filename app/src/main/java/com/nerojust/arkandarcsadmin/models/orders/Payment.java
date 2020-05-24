@@ -15,6 +15,7 @@ public class Payment {
     @Expose
     private String taxAmount;
 
+
     public String getPaymentMethod() {
         return paymentMethod;
     }
