@@ -20,6 +20,7 @@ public class SessionManager {
     private static final String ADD_PRODUCT = "ADD_PRODUCT";
     private static final String ADD_PRODUCTS = "ADD_PRODUCTS";
     private static final String DELETE_PRODUCTS = "DELETE_PRODUCTS";
+    private static final String ORDER_ID = "ORDER_ID";
 
 
     private final SharedPreferences pref = getSharedPreferences();
@@ -191,6 +192,15 @@ public class SessionManager {
 
     public void setProductId(String productId) {
         setStringPreference(PRODUCT_ID,productId);
+    }
+
+
+    public String getOrderId(){
+        return getStringPreference(ORDER_ID);
+    }
+
+    public void setOrderId(String orderId) {
+        setStringPreference(ORDER_ID,orderId);
     }
 
     public String getAddProductJson(){

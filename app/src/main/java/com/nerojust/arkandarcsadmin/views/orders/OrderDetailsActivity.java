@@ -6,11 +6,19 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.models.orders.OrdersResponse;
+import com.nerojust.arkandarcsadmin.models.orders.OrdersSendObject;
+import com.nerojust.arkandarcsadmin.models.orders.Payment;
+import com.nerojust.arkandarcsadmin.models.orders.Product;
+import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.OrderPatchInterface;
 
 import static com.nerojust.arkandarcsadmin.utils.AppUtils.decodeStringToImage;
 
@@ -56,6 +64,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private void getExtras() {
         Intent intent = getIntent();
         itemId = intent.getStringExtra("itemId");
+        AppUtils.getSessionManagerInstance().setOrderId(itemId);
+
         quantity = intent.getStringExtra("quantity");
         amount = intent.getStringExtra("amount");
         orderNumber = intent.getStringExtra("orderNumber");
@@ -126,7 +136,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
 
@@ -137,7 +146,57 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private void processOrder() {
-        
+        AppUtils.initLoadingDialog(this);
+
+        Payment payment = new Payment();
+        payment.setPaymentMethod(paymentMethod);
+        payment.setAmount(amount);
+        payment.setTaxAmount(tax);
+
+        Product product = new Product();
+        product.setProductAmount(amount);
+        product.setProductCategory(productCategory);
+        product.setProductColor(productColor);
+        product.setProductId(productId);
+        product.setProductName(productName);
+        product.setProductQuantity(quantity);
+        product.setProductImage(imageString);
+
+        OrdersSendObject ordersSendObject = new OrdersSendObject();
+        ordersSendObject.setOrderId(orderNumber);
+        ordersSendObject.setCustomerId("CustomerId");
+        ordersSendObject.setCustomerName(name);
+        ordersSendObject.setCustomerAddress(address);
+        ordersSendObject.setCustomerPhoneNumber(phoneNumber);
+        ordersSendObject.setCustomerEmailAddress(emailAddress);
+        ordersSendObject.setLga(lga);
+        ordersSendObject.setState(state);
+        ordersSendObject.setCountry(country);
+        ordersSendObject.setPayment(payment);
+        ordersSendObject.setOrderStatus(status);
+        ordersSendObject.setProduct(product);
+
+        WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
+        webServiceRequestMaker.changeOrderStatusForOne(ordersSendObject, new OrderPatchInterface() {
+            @Override
+            public void onSuccess(OrdersResponse ordersResponse) {
+                Toast.makeText(OrderDetailsActivity.this, "Order Set Ready to Ship", Toast.LENGTH_SHORT).show();
+                finish();
+                AppUtils.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onError(String error) {
+                AppUtils.showDialog(error, OrderDetailsActivity.this);
+                AppUtils.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onErrorCode(int errorCode) {
+                AppUtils.showDialog("" + errorCode, OrderDetailsActivity.this);
+                AppUtils.dismissLoadingDialog();
+            }
+        });
     }
 
 

@@ -183,7 +183,7 @@ public class WebServiceRequestMaker {
         });
     }
     public void changeOrderStatusForOne(OrdersSendObject ordersSendObject, OrderPatchInterface orderPatchInterface) {
-        Call<OrdersResponse> call = patchInterface.editOrder(ordersSendObject, sessionManager.getProductId());
+        Call<OrdersResponse> call = patchInterface.editOrder(ordersSendObject, sessionManager.getOrderId());
         call.enqueue(new Callback<OrdersResponse>() {
             @Override
             public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
