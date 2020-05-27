@@ -15,6 +15,7 @@ import com.nerojust.arkandarcsadmin.models.products.UpdateProductResponse;
 import com.nerojust.arkandarcsadmin.models.products.UpdateProductsSendObject;
 import com.nerojust.arkandarcsadmin.models.registration.RegistrationResponse;
 import com.nerojust.arkandarcsadmin.models.registration.RegistrationSendObject;
+import com.nerojust.arkandarcsadmin.models.transactions.TransactionResponse;
 import com.nerojust.arkandarcsadmin.models.users.UsersResponse;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
 import com.nerojust.arkandarcsadmin.utils.MyApplication;
@@ -26,6 +27,7 @@ import com.nerojust.arkandarcsadmin.web_services.interfaces.OrderPatchInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.OrdersInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.ProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.RegisterInterface;
+import com.nerojust.arkandarcsadmin.web_services.interfaces.TransactionsInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.UpdateProductInterface;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.UsersInterface;
 
@@ -419,5 +421,33 @@ public class WebServiceRequestMaker {
         });
     }
 
+    public void getAllTransactions(TransactionsInterface transactionsInterface) {
+        Call<TransactionResponse> call = getInterface.getAllTransactions();
+        call.enqueue(new Callback<TransactionResponse>() {
+            @Override
+            public void onResponse(Call<TransactionResponse> call, Response<TransactionResponse> response) {
+                if (response.isSuccessful()) {
+                    TransactionResponse transactionResponse = response.body();
+                    transactionsInterface.onSuccess(transactionResponse);
+                } else {
+                    transactionsInterface.onError(response.message());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<TransactionResponse> call, Throwable t) {
+                if (t.getMessage() != null) {
+                    if (Objects.requireNonNull(t.getMessage()).contains("failed to connect")) {
+                        transactionsInterface.onError("Network Error, please try again");
+                    } else {
+                        transactionsInterface.onError(t.getMessage());
+                    }
+                    String error = (t.getMessage() == null) ? "No error message" : t.getMessage();
+                    Log.e("Login error", error);
+                } else {
+                    transactionsInterface.onError("Network error");
+                }
+            }
+        });
+    }
 }

@@ -3,6 +3,7 @@ package com.nerojust.arkandarcsadmin.views.orders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
-
+        processButton = findViewById(R.id.processButton);
         getExtras();
         initViews();
         initListeners();
@@ -76,6 +77,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
         productQuantity = intent.getStringExtra("productQuantity");
         imageString = intent.getStringExtra("imageString");
         status = intent.getStringExtra("status");
+
+        if (status != null && status.equalsIgnoreCase("completed")) {
+            processButton.setVisibility(View.GONE);
+        }
+
         date = intent.getStringExtra("date");
         paymentMethod = intent.getStringExtra("paymentMethod");
         tax = intent.getStringExtra("tax");
@@ -106,7 +112,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
         lgaTextview = findViewById(R.id.lga_tv);
         stateTextview = findViewById(R.id.state_tv);
         countryTextview = findViewById(R.id.country_tv);
-        processButton = findViewById(R.id.processButton);
 
 
         productNameTextview.setText(productName);
@@ -173,6 +178,17 @@ public class OrderDetailsActivity extends AppCompatActivity {
         ordersSendObject.setState(state);
         ordersSendObject.setCountry(country);
         ordersSendObject.setPayment(payment);
+
+        if (status.equalsIgnoreCase("pending")) {
+            status = "Ready to ship";
+        } else if (status.equalsIgnoreCase("ready to ship")) {
+            status = "Shipped";
+        } else if (status.equalsIgnoreCase("shipped")) {
+            status = "Completed";
+        } else if (status.equalsIgnoreCase("completed")) {
+            processButton.setVisibility(View.GONE);
+        }
+
         ordersSendObject.setOrderStatus(status);
         ordersSendObject.setProduct(product);
 
@@ -180,7 +196,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         webServiceRequestMaker.changeOrderStatusForOne(ordersSendObject, new OrderPatchInterface() {
             @Override
             public void onSuccess(OrdersResponse ordersResponse) {
-                Toast.makeText(OrderDetailsActivity.this, "Order Set Ready to Ship", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDetailsActivity.this, "Order status changed successfully", Toast.LENGTH_SHORT).show();
                 finish();
                 AppUtils.dismissLoadingDialog();
             }

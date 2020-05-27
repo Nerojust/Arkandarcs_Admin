@@ -52,6 +52,10 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -104,10 +108,6 @@ public class AppUtils {
         }
     }
 
-//    public static String generateHash(String input1, String input2) {
-//        return getSHA512(input1 + input2 + BuildConfig.HASH_KEY);
-//    }
-
     public static String generateRandomString() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
@@ -131,14 +131,6 @@ public class AppUtils {
         return salt.toString();
     }
 
-//    public static void showProgressTracker(View view, Context context) {
-//        String[] descriptionData = {context.getResources().getString(R.string.sender), context.getResources().getString(R.string.receiver), context.getResources().getString(R.string.summary)};
-//        StateProgressBar stateProgressBar = view.findViewById(R.id.your_state_progress_bar_id);
-//        stateProgressBar.setStateDescriptionData(descriptionData);
-//        stateProgressBar.setStateDescriptionTypeface("font/rubik_regular.ttf");
-//        stateProgressBar.setStateNumberTypeface("font/rubik_regular.ttf");
-//    }
-
     public static String checkPhoneNumberAndRestructure(String number) {
         if (number.substring(0, 1).equals("0")) {
             number = number.substring(1);
@@ -154,6 +146,14 @@ public class AppUtils {
             return number;
         }
     }
+
+//    public static void showProgressTracker(View view, Context context) {
+//        String[] descriptionData = {context.getResources().getString(R.string.sender), context.getResources().getString(R.string.receiver), context.getResources().getString(R.string.summary)};
+//        StateProgressBar stateProgressBar = view.findViewById(R.id.your_state_progress_bar_id);
+//        stateProgressBar.setStateDescriptionData(descriptionData);
+//        stateProgressBar.setStateDescriptionTypeface("font/rubik_regular.ttf");
+//        stateProgressBar.setStateNumberTypeface("font/rubik_regular.ttf");
+//    }
 
     public static void changeStatusOfButton(Context context, Button button, boolean isEnabled) {
         if (isEnabled) {
@@ -268,6 +268,7 @@ public class AppUtils {
         btnOk.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();
     }
+
     public static Bitmap decodeStringToImage(String encodedImage) {
         Bitmap bmp = null;
         if (encodedImage != null) {
@@ -530,7 +531,6 @@ public class AppUtils {
         alertDialog.dismiss();
     }
 
-
     @SuppressLint("NewApi")
     public static String getSHA512(String input) {
         String toReturn = null;
@@ -545,7 +545,6 @@ public class AppUtils {
 
         return toReturn;
     }
-
 
     public static void logOutInactivitySessionTimeout(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -569,5 +568,22 @@ public class AppUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //    public static String generateHash(String input1, String input2) {
+//        return getSHA512(input1 + input2 + BuildConfig.HASH_KEY);
+//    }
+    public static String formateDate(String dateString) {
+        Date date;
+        String formattedDate = "";
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault()).parse(dateString);
+            formattedDate = new SimpleDateFormat("MMMM dd, hh:mm a", Locale.getDefault()).format(date);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return formattedDate;
     }
 }

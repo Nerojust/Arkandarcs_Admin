@@ -20,6 +20,10 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
         <activity
+            android:name=".views.transactions.TransactionDetailsActivity"
+            android:label="Details"
+            android:parentActivityName=".views.transactions.TransactionsActivity" />
+        <activity
             android:name=".views.orders.OrderDetailsActivity"
             android:label="Order Details"
             android:parentActivityName=".views.orders.OrdersActivity" />
@@ -38,6 +42,7 @@
         </activity>
         <activity
             android:name=".views.users.UsersActivity"
+            android:label="Admin"
             android:parentActivityName=".views.DashBoardActivity" />
         <activity
             android:name=".views.DashBoardActivity"
@@ -69,7 +74,10 @@
             android:name=".views.products.AddProductActivity"
             android:label="Add Product"
             android:parentActivityName=".views.products.ProductsActivity" />
-        <activity android:name=".views.transactions.TransactionsActivity" />
+        <activity
+            android:name=".views.transactions.TransactionsActivity"
+            android:label="Transactions"
+            android:parentActivityName=".views.DashBoardActivity" />
     </application>
 
 </manifest>
