@@ -26,11 +26,12 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/_4sdp">
+
             <View
                 android:id="@+id/v1"
                 android:layout_width="6dp"
                 android:layout_height="match_parent"
-                android:background="@color/arkandarcs_green"/>
+                android:background="@color/arkandarcs_green" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,7 +106,9 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/rubik_regular"
+                            android:textColor="@color/arkandarcs_black"
                             android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold"
                             tools:text="1HHS667H" />
 
                         <TextView
@@ -139,17 +142,38 @@
                             tools:text="1" />
                     </LinearLayout>
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/transactionDate"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:fontFamily="@font/rubik_regular"
-                    android:gravity="right"
-                    android:textSize="@dimen/_11ssp"
-                    tools:text="4th May 2020" />
+                    android:orientation="horizontal">
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="2" />
+
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_toLeftOf="@id/transactionDate"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/ic_date_range_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/transactionDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginRight="7dp"
+                        android:fontFamily="@font/rubik_regular"
+                        android:gravity="right"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="4th May 2020" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

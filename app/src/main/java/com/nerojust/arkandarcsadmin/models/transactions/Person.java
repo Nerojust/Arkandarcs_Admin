@@ -14,12 +14,36 @@ public class Person {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("city")
+    @Expose
+    private String city;
+
+    @SerializedName("state")
+    @Expose
+    private String state;
+
     @SerializedName("phoneNumber")
     @Expose
     private String phoneNumber;
     @SerializedName("emailAddress")
     @Expose
     private String emailAddress;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getFirstName() {
         return firstName;

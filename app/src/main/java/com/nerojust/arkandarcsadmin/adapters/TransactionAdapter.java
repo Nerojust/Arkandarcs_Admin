@@ -41,29 +41,48 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation));
         String txnId = transactionResponse.getResults().get(position).getTransactionRefId();
         String orderId = transactionResponse.getResults().get(position).getOrderId();
+        String userId = transactionResponse.getResults().get(position).getUserId();
+        String productId = transactionResponse.getResults().get(position).getProductId();
+        String firstName = transactionResponse.getResults().get(position).getPerson().getFirstName();
+        String lastName = transactionResponse.getResults().get(position).getPerson().getLastName();
+        String phoneNumber = transactionResponse.getResults().get(position).getPerson().getPhoneNumber();
+        String emailAddress = transactionResponse.getResults().get(position).getPerson().getEmailAddress();
+        String address = transactionResponse.getResults().get(position).getPerson().getAddress();
+        String city = transactionResponse.getResults().get(position).getPerson().getCity();
+        String state = transactionResponse.getResults().get(position).getPerson().getState();
         String amount = transactionResponse.getResults().get(position).getAmount();
         String createdAt = transactionResponse.getResults().get(position).getCreatedAt();
         String quantity = transactionResponse.getResults().get(position).getQuantity();
         String date = AppUtils.formateDate(createdAt);
+        String fullName = firstName + " " + lastName;
 
         holder.transactionIdTextview.setText(txnId);
         holder.orderIdTextview.setText(orderId);
-        holder.amountTextview.setText(amount);
+        if (amount == null) amount = "0";
+        holder.amountTextview.setText(context.getResources().getString(R.string.naira) + amount);
         holder.quantityTextview.setText(quantity);
         holder.createdAtTextview.setText(date);
 
+        String finalAmount = amount;
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(context, TransactionDetailsActivity.class);
             intent.putExtra("transactionId", transactionResponse.getResults().get(position).getId());
             intent.putExtra("orderId", orderId);
-            intent.putExtra("amount", amount);
+            intent.putExtra("userId", userId);
+            intent.putExtra("productId", productId);
+            intent.putExtra("name", fullName);
+            intent.putExtra("phoneNumber", phoneNumber);
+            intent.putExtra("emailAddress", emailAddress);
+            intent.putExtra("city", city);
+            intent.putExtra("state", state);
+            intent.putExtra("address",address);
+            intent.putExtra("amount", finalAmount);
             intent.putExtra("quantity", quantity);
             intent.putExtra("date", date);
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
-
     }
 
     @Override

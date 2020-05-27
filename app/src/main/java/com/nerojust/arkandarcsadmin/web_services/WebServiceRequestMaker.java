@@ -61,7 +61,10 @@ public class WebServiceRequestMaker {
                         if (loginResponse.isSuccessful()) {
                             loginResponseInterface.onSuccess(loginResponse);
                         } else {
-                            loginResponseInterface.onError(loginResponse.getMessage());
+                            if (loginResponse.getMessage().contains("unable to resolve"))
+                                loginResponseInterface.onError("Network error. Please try again");
+                            else
+                                loginResponseInterface.onError(loginResponse.getMessage());
                         }
                     }
                 } else {
@@ -99,7 +102,10 @@ public class WebServiceRequestMaker {
                         if (registrationResponse.isSuccessful()) {
                             registerInterface.onSuccess(registrationResponse);
                         } else {
-                            registerInterface.onError(registrationResponse.getMessage());
+                            if (registrationResponse.getMessage().contains("unable to resolve"))
+                                registerInterface.onError("Network error. Please try again");
+                            else
+                                registerInterface.onError(registrationResponse.getMessage());
                         }
                     }
                 } else {
@@ -134,7 +140,10 @@ public class WebServiceRequestMaker {
                     ProductsResponse products = response.body();
                     productInterface.onSuccess(products);
                 } else {
-                    productInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        productInterface.onError("Network error. Please try again");
+                    else
+                        productInterface.onError(response.message());
                 }
             }
 
@@ -164,7 +173,10 @@ public class WebServiceRequestMaker {
                     UpdateProductResponse products = response.body();
                     productInterface.onSuccess(products);
                 } else {
-                    productInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        productInterface.onError("Network error. Please try again");
+                    else
+                        productInterface.onError(response.message());
                 }
             }
 
@@ -184,6 +196,7 @@ public class WebServiceRequestMaker {
             }
         });
     }
+
     public void changeOrderStatusForOne(OrdersSendObject ordersSendObject, OrderPatchInterface orderPatchInterface) {
         Call<OrdersResponse> call = patchInterface.editOrder(ordersSendObject, sessionManager.getOrderId());
         call.enqueue(new Callback<OrdersResponse>() {
@@ -193,7 +206,10 @@ public class WebServiceRequestMaker {
                     OrdersResponse products = response.body();
                     orderPatchInterface.onSuccess(products);
                 } else {
-                    orderPatchInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        orderPatchInterface.onError("Network error. Please try again");
+                    else
+                        orderPatchInterface.onError(response.message());
                 }
             }
 
@@ -223,7 +239,10 @@ public class WebServiceRequestMaker {
                     DeleteProductResponse products = response.body();
                     deleteInterfacer.onSuccess(products);
                 } else {
-                    deleteInterfacer.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        deleteInterfacer.onError("Network error. Please try again");
+                    else
+                        deleteInterfacer.onError(response.message());
                 }
             }
 
@@ -253,7 +272,10 @@ public class WebServiceRequestMaker {
                     ProductsResponse products = response.body();
                     addProductInterface.onSuccess(products);
                 } else {
-                    addProductInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        addProductInterface.onError("Network error. Please try again");
+                    else
+                        addProductInterface.onError(response.message());
                 }
             }
 
@@ -283,7 +305,10 @@ public class WebServiceRequestMaker {
                     UsersResponse loginUsersResponse = response.body();
                     usersInterface.onSuccess(loginUsersResponse);
                 } else {
-                    usersInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        usersInterface.onError("Network error. Please try again");
+                    else
+                        usersInterface.onError(response.message());
                 }
             }
 
@@ -313,7 +338,10 @@ public class WebServiceRequestMaker {
                     OrdersResponse ordersResponse = response.body();
                     ordersInterface.onSuccess(ordersResponse);
                 } else {
-                    ordersInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        ordersInterface.onError("Network error. Please try again");
+                    else
+                        ordersInterface.onError(response.message());
                 }
             }
 
@@ -333,6 +361,7 @@ public class WebServiceRequestMaker {
             }
         });
     }
+
     public void getAllrtsOrders(OrdersInterface ordersInterface) {
         Call<OrdersResponse> call = getInterface.getOneStatus("Ready to ship");
         call.enqueue(new Callback<OrdersResponse>() {
@@ -342,7 +371,10 @@ public class WebServiceRequestMaker {
                     OrdersResponse ordersResponse = response.body();
                     ordersInterface.onSuccess(ordersResponse);
                 } else {
-                    ordersInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        ordersInterface.onError("Network error. Please try again");
+                    else
+                        ordersInterface.onError(response.message());
                 }
             }
 
@@ -362,6 +394,7 @@ public class WebServiceRequestMaker {
             }
         });
     }
+
     public void getAllShippedorders(OrdersInterface ordersInterface) {
         Call<OrdersResponse> call = getInterface.getOneStatus("Shipped");
         call.enqueue(new Callback<OrdersResponse>() {
@@ -371,7 +404,10 @@ public class WebServiceRequestMaker {
                     OrdersResponse ordersResponse = response.body();
                     ordersInterface.onSuccess(ordersResponse);
                 } else {
-                    ordersInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        ordersInterface.onError("Network error. Please try again");
+                    else
+                        ordersInterface.onError(response.message());
                 }
             }
 
@@ -391,6 +427,7 @@ public class WebServiceRequestMaker {
             }
         });
     }
+
     public void getAllCompletedrders(OrdersInterface ordersInterface) {
         Call<OrdersResponse> call = getInterface.getOneStatus("Completed");
         call.enqueue(new Callback<OrdersResponse>() {
@@ -400,7 +437,10 @@ public class WebServiceRequestMaker {
                     OrdersResponse ordersResponse = response.body();
                     ordersInterface.onSuccess(ordersResponse);
                 } else {
-                    ordersInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        ordersInterface.onError("Network error. Please try again");
+                    else
+                        ordersInterface.onError(response.message());
                 }
             }
 
@@ -430,7 +470,10 @@ public class WebServiceRequestMaker {
                     TransactionResponse transactionResponse = response.body();
                     transactionsInterface.onSuccess(transactionResponse);
                 } else {
-                    transactionsInterface.onError(response.message());
+                    if (response.message().contains("unable to resolve"))
+                        transactionsInterface.onError("Network error. Please try again");
+                    else
+                        transactionsInterface.onError(response.message());
                 }
             }
 
