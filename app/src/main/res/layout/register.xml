@@ -7,7 +7,7 @@
     android:background="@drawable/ic_undraw_in_no_time"
     android:backgroundTint="@color/arkandarcs_lighter_gray"
     android:orientation="vertical"
-    tools:context=".views.register.RegisterActivity">
+    tools:context=".admin.views.register.AdminRegisterActivity">
 
     <TextView
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/arkandarcs_light_gray"
     android:orientation="vertical"
-    tools:context="com.nerojust.arkandarcsadmin.views.orders.OrderDetailsActivity">
+    tools:context=".admin.views.orders.AdminOrderDetailsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

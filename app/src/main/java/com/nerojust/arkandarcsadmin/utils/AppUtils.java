@@ -43,7 +43,7 @@ import androidx.core.content.ContextCompat;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nerojust.arkandarcsadmin.R;
-import com.nerojust.arkandarcsadmin.views.login.LoginActivity;
+import com.nerojust.arkandarcsadmin.admin.views.login.AdminLoginActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -552,7 +552,7 @@ public class AppUtils {
         builder.setMessage(activity.getResources().getString(R.string.session_timeout));
         builder.setCancelable(false);
         builder.setPositiveButton(activity.getResources().getString(R.string.okay), (dialog, id) -> {
-            Intent intent = new Intent(activity, LoginActivity.class);
+            Intent intent = new Intent(activity, AdminLoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_5sdp"
-    tools:context="com.nerojust.arkandarcsadmin.views.users.UsersActivity">
+    tools:context=".admin.views.users.UsersActivity">
 
     <TextView
         android:id="@+id/text"

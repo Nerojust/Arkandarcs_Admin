@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Arkandarcs Admin</string>
+    <string name="app_name">ArkandArcs</string>
     <string name="sender">Sender</string>
     <string name="receiver">Receiver</string>
     <string name="summary">Summary</string>
@@ -13,7 +13,7 @@
     <string name="password_is_required">Password is required</string>
     <string name="password_is_too_short">Password is too short</string>
     <string name="arkandarcs_admin">ArkandArcs Admin</string>
-    <string name="enter_email">Enter email</string>
+    <string name="enter_email">Enter Email</string>
     <string name="enter_password">Enter Password</string>
     <string name="register_as_admin">Register as Admin</string>
     <string name="reset_password">Reset Password?</string>
@@ -44,6 +44,11 @@
     <string name="create_product">Create Product</string>
     <string name="ntel_url">http://www.ntel.com.ng/</string>
     <string name="select_section_to_edit">Select field to edit</string>
+    <string name="login_as_admin">I am an Admin</string>
+    <string name="login_as_customer">I am a Customer</string>
+    <string name="sign_in_to_continue_as_customer">Sign in as customer</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_in_to_continue_as_admin">Sign in as Admin</string>
     <string-array name="slide_texts">
         <item>Click to visit our website for more deals</item>
         <item>Be first to know when mega deals arrive</item>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.SplashScreenActivity">
+    tools:context=".start_pages.SplashScreenActivity">
 
 
     <LinearLayout
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/splashimage"
-            android:layout_width="163dp"
-            android:layout_height="198dp"
+            android:layout_width="133dp"
+            android:layout_height="155dp"
             android:src="@drawable/arkandarcs_logo" />
 
     </LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/arkandarcs_light_gray"
-    tools:context="com.nerojust.arkandarcsadmin.views.transactions.TransactionDetailsActivity">
+    tools:context=".admin.views.transactions.AdminTransactionDetailsActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
