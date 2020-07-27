@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".customer.orders.CustomerOrdersActivity"></activity>
+        <activity android:name=".customer.orders.CustomerOrdersActivity"/>
         <activity android:name=".customer.CustomerDashboard" />
         <activity android:name=".customer.register.CustomerRegisterActivity" />
         <activity

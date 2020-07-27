@@ -40,14 +40,14 @@ public class AdminProductsActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(this::getAllProducts);
 
         recyclerView = findViewById(R.id.recycler_products);
+        // GridLayoutManager layoutManager = new GridLayoutManager(this,2);
+        //      layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.smoothScrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.smoothScrollToPosition(0);
 
         getAllProducts();
     }

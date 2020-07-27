@@ -19,6 +19,7 @@ import com.nerojust.arkandarcsadmin.admin.views.register.AdminRegisterActivity;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
+import com.nerojust.arkandarcsadmin.utils.SessionManager;
 import com.nerojust.arkandarcsadmin.web_services.WebServiceRequestMaker;
 import com.nerojust.arkandarcsadmin.web_services.interfaces.LoginInterface;
 
@@ -30,12 +31,13 @@ public class AdminLoginActivity extends AppCompatActivity {
     private TextView resetPasswordTextview;
     private String retrievedEmail;
     private String retrievedPassword;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_login);
-
+        sessionManager = AppUtils.getSessionManagerInstance();
         String createProduct = AppUtils.getSessionManagerInstance().getAddProductJson();
 
         initAds();
@@ -116,7 +118,8 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     private void gotoDashboardActivity(LoginResponse response) {
         Intent intent = new Intent(this, AdminDashBoardActivity.class);
-        AppUtils.getSessionManagerInstance().setFirstNameFromLogin(response.getResults().get(0).getFirstName());
+        sessionManager.setFirstNameFromLogin(response.getResults().get(0).getFirstName());
+        sessionManager.setToken(response.getResults().get(0).getToken());
         startActivity(intent);
     }
 
@@ -146,7 +149,7 @@ public class AdminLoginActivity extends AppCompatActivity {
         return true;
     }
 
-//    @Override
+    //    @Override
 //    public void onBackPressed() {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setMessage(getResources().getString(R.string.do_you_want_to_exit))

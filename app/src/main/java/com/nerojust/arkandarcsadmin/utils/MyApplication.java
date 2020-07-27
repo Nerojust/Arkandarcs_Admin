@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -70,10 +72,8 @@ public class MyApplication extends Application {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addNetworkInterceptor(new AddHeaderInterceptor());
         retrofit = new Retrofit.Builder()
-
                 .client(okHttpClientNetwork)
                 .client(httpClient.build())
-                //.client(client.newBuilder().build())
                 .baseUrl(Constants.BASE_URL_ARKANDARCS)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -173,9 +173,11 @@ public class MyApplication extends Application {
 
     //create an intercepter to add multiple headers to chain
     public static class AddHeaderInterceptor implements Interceptor {
+        @NonNull
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request.Builder builder = chain.request().newBuilder();
+           // builder.addHeader("Content-Type", "application/json");
             builder.addHeader("Authorization", "Bearer " + AppUtils.getSessionManagerInstance().getToken());
 
             return chain.proceed(builder.build());
