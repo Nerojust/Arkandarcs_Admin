@@ -11,6 +11,6 @@ public class Constants {
     public static final long READ_TIMEOUT = 30;
     public static final long WRITE_TIMEOUT = 30;
 
-    public static final String BASE_URL_ARKANDARCS = "http://3.20.165.114/api/";
+    public static final String BASE_URL_ARKANDARCS = "http://13.59.205.220:5000/api/";
     public static final Integer SUCCESS = 200;
 }
