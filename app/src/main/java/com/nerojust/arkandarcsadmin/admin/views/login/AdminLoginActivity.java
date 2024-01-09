@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.nerojust.arkandarcsadmin.R;
 import com.nerojust.arkandarcsadmin.admin.views.AdminDashBoardActivity;
 import com.nerojust.arkandarcsadmin.admin.views.register.AdminRegisterActivity;
+import com.nerojust.arkandarcsadmin.admin.views.reset_password.ResetPassword;
 import com.nerojust.arkandarcsadmin.models.login.LoginResponse;
 import com.nerojust.arkandarcsadmin.models.login.LoginSendObject;
 import com.nerojust.arkandarcsadmin.utils.AppUtils;
@@ -76,6 +77,13 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
         registerButton.setOnClickListener(v -> gotoRegisterActivity());
+
+        resetPasswordTextview.setOnClickListener(v->gotoResetPasswordActivity());
+    }
+
+    private void gotoResetPasswordActivity() {
+        Intent intent = new Intent(this, ResetPassword.class);
+        startActivity(intent);
     }
 
     private void gotoRegisterActivity() {
