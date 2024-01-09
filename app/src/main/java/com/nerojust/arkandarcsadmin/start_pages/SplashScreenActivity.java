@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nerojust.arkandarcsadmin.R;
+import com.nerojust.arkandarcsadmin.admin.views.login.AdminLoginActivity;
 import com.nerojust.arkandarcsadmin.customer.login.CustomerLoginActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
 
         new Handler().postDelayed(() -> {
-                Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AdminLoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

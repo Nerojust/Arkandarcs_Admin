@@ -8,8 +8,8 @@
     <string name="alert">Alert</string>
     <string name="loading_please_wait">Loading, please wait...</string>
     <string name="Location_needed">Location is needed</string>
-    <string name="username_is_required">Username is required</string>
-    <string name="username_is_too_short">Username is too short</string>
+    <string name="username_is_required">Email address is required</string>
+    <string name="username_is_too_short">Email address is too short</string>
     <string name="password_is_required">Password is required</string>
     <string name="password_is_too_short">Password is too short</string>
     <string name="arkandarcs_admin">ArkandArcs Admin</string>

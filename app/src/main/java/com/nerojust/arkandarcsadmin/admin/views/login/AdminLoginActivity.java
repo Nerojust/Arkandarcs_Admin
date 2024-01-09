@@ -68,13 +68,12 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     private void initListeners() {
         loginButton.setOnClickListener(v -> {
-//            if (isValidFields()) {
-//                retrievedEmail = emailEdittext.getText().toString().trim();
-//                retrievedPassword = passwordEdittext.getText().toString().trim();
+            if (isValidFields()) {
+                retrievedEmail = emailEdittext.getText().toString().trim();
+                retrievedPassword = passwordEdittext.getText().toString().trim();
 
-            performNetworkRequest();
-
-//            }
+                performNetworkRequest();
+            }
         });
         registerButton.setOnClickListener(v -> gotoRegisterActivity());
     }
@@ -88,8 +87,10 @@ public class AdminLoginActivity extends AppCompatActivity {
         AppUtils.initLoadingDialog(this);
 
         LoginSendObject loginSendObject = new LoginSendObject();
-        loginSendObject.setEmail("nerojust2@gmail.com");
-        loginSendObject.setPassword("12345");
+        loginSendObject.setEmail(retrievedEmail);
+        loginSendObject.setPassword(retrievedPassword);
+//        loginSendObject.setEmail("nerojust2@gmail.com");
+//        loginSendObject.setPassword("12345");
 
         WebServiceRequestMaker webServiceRequestMaker = new WebServiceRequestMaker();
         webServiceRequestMaker.loginInUser(loginSendObject, new LoginInterface() {

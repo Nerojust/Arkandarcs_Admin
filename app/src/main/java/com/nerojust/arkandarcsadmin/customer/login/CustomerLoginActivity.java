@@ -25,7 +25,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
-        findViewById(R.id.imageLogo).setOnClickListener(v -> startActivity(new Intent(this, AdminLoginActivity.class)));
+        findViewById(R.id.imageLogo).setOnClickListener(v -> startActivity(new Intent(this, CustomerLoginActivity.class)));
 
     }
 
