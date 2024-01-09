@@ -21,7 +21,10 @@
         tools:targetApi="m">
         <activity
             android:name=".admin.views.reset_password.ResetPassword"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Reset Password"
+            android:parentActivityName=".admin.views.login.AdminLoginActivity" />
+
         <activity android:name=".customer.orders.CustomerOrdersActivity" />
         <activity android:name=".customer.CustomerDashboard" />
         <activity android:name=".customer.register.CustomerRegisterActivity" />
