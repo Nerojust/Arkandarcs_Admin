@@ -19,7 +19,7 @@
         android:gravity="start"
         android:text="Welcome,"
         android:textColor="@color/colorPrimary"
-        android:textSize="28sp" />
+        android:textSize="@dimen/_23ssp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:gravity="start"
         android:text="Sign up to continue"
         android:textColor="@color/arkandarcs_gray_color"
-        android:textSize="15sp" />
+        android:textSize="@dimen/_13ssp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -352,8 +352,9 @@
                 android:background="@drawable/dashboard_buttons"
                 android:fontFamily="@font/rubik_regular"
                 android:text="Sign up"
+                android:textAllCaps="false"
                 android:textColor="@color/arkandarcs_white"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_10ssp" />
 
             <TextView
                 android:id="@+id/loginTextview"
@@ -365,7 +366,7 @@
                 android:gravity="center"
                 android:text="Back to login"
                 android:textColor="@color/arkandarcs_gray_color"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_10ssp" />
 
 
         </LinearLayout>
